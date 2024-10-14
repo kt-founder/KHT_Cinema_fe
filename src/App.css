@@ -16,10 +16,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 50px;
   }
   .logo {
-    width: 100px; /* Hoặc kích thước phù hợp */
-    height: auto;
+    width: 70px; /* Hoặc kích thước phù hợp */
+    height: 70px;
   }
   
   header a {
