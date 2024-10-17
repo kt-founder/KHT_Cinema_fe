@@ -1,0 +1,12 @@
+/* src/styles/MovieList.css */
+.card-movie {
+    background-color: #333; /* Màu nền card */
+    color: #fff;           /* Màu chữ */
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+  .card-movie:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+  
