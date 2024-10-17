@@ -13,6 +13,7 @@ function Header() {
     }
     return (
     <header>
+        
         <div style={{marginLeft:"20px"}}>
             <img src={logo} alt="KHT logo" className="logo"/>
         </div>
