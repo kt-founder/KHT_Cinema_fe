@@ -25,6 +25,7 @@ function LoginAdmin() {
                 console.log("rf_token: " ,token.data.refresh_token)
                 alert('Đăng nhập thành công!');
                 sessionStorage.setItem("ADMIN_USERNAME", username)
+                sessionStorage.setItem("HKT_ACCESS_TOKEN_ADMIN", token.data.access_token)
                 window.location.href = '/admin/dashboard';
             } else{
                 setError("Tên đăng nhập hoặc mật khẩu không đúng!")

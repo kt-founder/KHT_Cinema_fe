@@ -1,5 +1,6 @@
 import React from 'react';
-import './MovieTable.css'; // File CSS được cập nhật bên dưới
+import './MovieTable.css';
+import MovieCDialog from "../../components/MovieCDialog"; // File CSS được cập nhật bên dưới
 
 const MovieTable = () => {
     // Dữ liệu mẫu cho bảng phim
@@ -18,8 +19,7 @@ const MovieTable = () => {
                     <i className="fas fa-search"></i>
                 </div>
                 <div style={{textAlign: 'right'}}>
-                    <button className="" style={{width: '100px', padding: '10px', background: '#16a085'}}><i className="fa-solid fa-plus"></i>
-                    </button>
+                    <MovieCDialog/>
                 </div>
             </div>
             <table className="movie-table">
