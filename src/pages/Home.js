@@ -13,8 +13,8 @@ const { Header, Content, Sider } = Layout;
 const Home = () => {
   return (
     <Layout className="full-width" style={{ backgroundColor: '#111' }}>
-      <Header className="full-width" style={{ backgroundColor: '#0000ff' }}>
-        <Navbar/>
+      <Header className="full-width" style={{ backgroundColor: '#000' }}>
+        <Navbar />
       </Header>
       <Layout className="full-width">
         <Sider width={250} style={{ backgroundColor: '#1f1f1f' }}>
