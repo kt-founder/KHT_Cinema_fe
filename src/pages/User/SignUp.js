@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './styles/SignUp.css';
+import '../styles/SignUp.css';
 
 function SignUp() {
     const [username, setUsername] = useState('');
@@ -32,7 +32,8 @@ function SignUp() {
                 console.log("refresh_token: " ,token.data.refresh_token)
                 alert('Đăng ký thành công!');
                 sessionStorage.setItem("userName", username)
-                window.location.href = '/movie';
+                sessionStorage.setItem("HKT_ACCESS_TOKEN_USER",token.data.access_token)
+                window.location.href = '/';
             } else{
                 setError("Tên đăng nhập hoặc mật khẩu không đúng!")
             }
@@ -91,7 +92,7 @@ function SignUp() {
                     <button type="submit">Đăng ký</button>
                 </form>
                 <p>
-                    Bạn đã có tài khoản KHT Cinema? <a href="/login">Đăng nhập thôi !</a>
+                    Bạn đã có tài khoản KHT Cinema? <a href="/User/Login">Đăng nhập thôi !</a>
                 </p>
             </div>
         </div>

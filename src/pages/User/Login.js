@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './styles/Login.css';
+import '../styles/Login.css';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
     try {
       // Gọi API đăng nhập
-      const response = await axios.post('http://localhost:8080/auth/login', {
+      const response = await axios.post('http://localhost:8080/auth/login-user', {
         username,
         password,
       });
@@ -22,9 +22,10 @@ function Login() {
         console.log("data receive: " , token)
         console.log("ac_token: " ,token.data.access_token)
         console.log("rf_token: " ,token.data.refresh_token)
-        alert('Đăng nhập thành công!');
+        // alert('Đăng nhập thành công!');
         sessionStorage.setItem("userName", username)
-        window.location.href = '/movie';
+        sessionStorage.setItem("HKT_ACCESS_TOKEN_USER",token.data.access_token)
+        window.location.href = '/';
       } else{
         setError("Tên đăng nhập hoặc mật khẩu không đúng!")
       }
@@ -86,7 +87,7 @@ function Login() {
           <button type="submit">Đăng nhập</button>
         </form>
         <p>
-          Bạn chưa có tài khoản KHT Cinema? <a href="/signup">Đăng ký ngay</a>
+          Bạn chưa có tài khoản KHT Cinema? <a href="/User/SignUp">Đăng ký ngay</a>
         </p>
       </div>
     </div>

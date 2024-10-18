@@ -1,0 +1,60 @@
+/* src/styles/global.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .ant-layout {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .ant-layout-content {
+    padding: 0;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .full-container {
+    max-width: 100%; /* Bỏ giới hạn max-width */
+    padding: 0;      /* Bỏ padding để không có khoảng trắng */
+  }
+  
+  .full-row {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+.navbar {
+  width: 100%;               /* Đảm bảo thanh điều hướng full-width */
+  background-color: #0000FF;  /* Màu nền xanh */
+  padding: 0;                 /* Bỏ padding thừa */
+  margin: 0;                  /* Bỏ margin thừa */
+}
+
+.navbar .ant-menu {
+  background-color: #0000FF;  /* Màu nền của menu */
+  border-bottom: none;        /* Bỏ viền dưới của menu */
+}
+
+.navbar .ant-menu-item {
+  color: #fff !important;     /* Màu chữ trắng cho các mục */
+}
+
+.navbar .ant-menu-item a {
+  color: #fff !important;     /* Màu chữ cho các liên kết */
+  text-decoration: none;      /* Bỏ gạch chân */
+}
+
+.navbar .ant-menu-item:hover {
+  background-color: #0056b3;  /* Màu khi hover */
+}
+
+.navbar .ant-menu-item-selected {
+  background-color: #0056b3 !important;  /* Màu khi được chọn */
+}

@@ -1,0 +1,107 @@
+/* Modal.css */
+
+/* Nút để mở modal */
+.open_modal_button {
+    padding: 10px 20px;
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.open_modal_button:hover {
+    background-color: #16a085;
+}
+
+/* Định dạng overlay cho modal */
+.modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Nội dung của modal */
+.modal_content {
+    text-align: left;
+    background-color: white;
+    width: 500px;
+    padding: 40px;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* Đầu của modal */
+.modal_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal_header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+/* Nút đóng modal */
+.close_modal_button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Phần thân của modal (ô nhập liệu) */
+.modal_body label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.modal_body input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+}
+
+.modal_body input:read-only {
+    background-color: #f7f7f7;
+}
+
+/* Chân của modal */
+.modal_footer {
+    text-align: right;
+    display: flex;
+    margin: 8px;
+}
+
+/* Nút OK */
+.modal_ok_button {
+    padding: 10px 20px;
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.modal_ok_button:hover {
+    background-color: #732d91;
+}
