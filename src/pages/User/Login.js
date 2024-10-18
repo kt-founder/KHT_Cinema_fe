@@ -22,7 +22,7 @@ function Login() {
         console.log("data receive: " , token)
         console.log("ac_token: " ,token.data.access_token)
         console.log("rf_token: " ,token.data.refresh_token)
-        alert('Đăng nhập thành công!');
+        // alert('Đăng nhập thành công!');
         sessionStorage.setItem("userName", username)
         sessionStorage.setItem("HKT_ACCESS_TOKEN_USER",token.data.access_token)
         window.location.href = '/';
