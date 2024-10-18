@@ -1,6 +1,7 @@
 // src/components/Navbar.js
 import React, {useState} from 'react';
 import { Menu } from 'antd';
+import logo from "../assets/images/logo2.png"
 
 const Navbar = () => {
     const [username, setUserName] = useState(sessionStorage.getItem("userName"))
@@ -14,6 +15,15 @@ const Navbar = () => {
     }
     return (
         <Menu mode="horizontal" style={{ backgroundColor: '#0000FF', color: '#0000FF', justifyContent: 'center', padding: '10px 5' }}>
+            <Menu.Item key="logo" style={{ padding: '0 20px' }}>
+                <a href="/">
+                    <img
+                        src={logo}  // Đường dẫn đến logo
+                        alt="Logo"
+                        style={{ height: '75px', marginRight: '70px' }} // Điều chỉnh kích thước logo
+                    />
+                </a>
+            </Menu.Item>
             <Menu.Item key="1" style={{ color: '#fff' }}>Trang chủ</Menu.Item>
             <Menu.Item key="2" style={{ color: '#fff' }}>Lịch chiếu</Menu.Item>
             <Menu.Item key="promo" style={{ color: '#fff' }}>Khuyến mãi</Menu.Item>
