@@ -23,7 +23,7 @@ function LoginAdmin() {
                 console.log("data receive: " , token)
                 console.log("ac_token: " ,token.data.access_token)
                 console.log("rf_token: " ,token.data.refresh_token)
-                alert('Đăng nhập thành công!');
+                // alert('Đăng nhập thành công!');
                 sessionStorage.setItem("ADMIN_USERNAME", username)
                 sessionStorage.setItem("HKT_ACCESS_TOKEN_ADMIN", token.data.access_token)
                 window.location.href = '/admin/dashboard';

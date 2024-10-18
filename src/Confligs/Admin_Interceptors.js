@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Tạo một instance của axios
 const Admin_axios = axios.create({
-    baseURL: 'https://localhost:8080/', // Đổi thành API của bạn
+    baseURL: 'http://localhost:8080/', // Đổi thành API của bạn
     headers: {
         'Content-Type': 'application/json',
     },
@@ -14,7 +14,6 @@ Admin_axios.interceptors.request.use(
     (config) => {
         // Lấy token từ localStorage
         const token = sessionStorage.getItem("HKT_ACCESS_TOKEN_ADMIN");
-
         // Nếu không thuộc public routes và cần token, thêm token vào header
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
