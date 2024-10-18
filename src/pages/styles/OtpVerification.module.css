@@ -1,0 +1,83 @@
+.otp_verification_container {
+    max-width: 400px;
+    margin: 0 auto;
+    /*padding: 30px;*/
+    text-align: center;
+    background-color: #142a4f;
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 22px;
+    color: #00e1ff;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.otp_inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.otp_inputs input {
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #1c3254;
+    color: white;
+}
+
+.otp_inputs input:focus {
+    border-color: #00e1ff;
+    outline: none;
+}
+
+.verify_button {
+    background-color: #d94141;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.verify_button:hover {
+    background-color: #b92b2b;
+}
+
+.footer {
+    text-align: center;
+    color: #00e1ff;
+    font-size: 14px;
+}
+
+.resend_button {
+    background-color: transparent;
+    border: none;
+    color: #00e1ff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.resend_button:hover {
+    text-decoration: underline;
+}

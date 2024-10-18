@@ -36,14 +36,13 @@ const LeftContainer = () => {
 
                     <li onClick={toggleDashboard}>
                         <Link to={null} style={{alignItems: 'center'}}>
-                            <i className="fa fa-caret-down"
-                                                             aria-hidden="true"></i> Account
+                            <i className="fa fa-caret-down" aria-hidden="true"></i> Account
                         </Link>
                         {/* Sub-menu items, chỉ hiển thị nếu isDashboardOpen là true */}
                         {isDashboardOpen && (
                             <ul style={{marginLeft:'40px'}}>
                                 <li>
-                                    <Link to="/admin/dashboard/overview"><i className="fas fa-user"></i>User</Link>
+                                    <Link to="/admin/manage-user"><i className="fas fa-user"></i>User</Link>
                                 </li>
                                 <li>
                                     <Link to="/admin/dashboard/stats"><i className="fas fa-ad"></i> Admin</Link>

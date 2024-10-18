@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import styles from './StylesComponent/MovieEDialog.module.css';
 
-const MovieEDialog = () => {
+const MovieEDialog = (props) => {
     const [movieData, setMovieData] = useState({
-        id: '',
-        title: '',
-        genre: '',
-        releaseDate: '',
-        duration: '',
-        director: '',
-        actors: '',
-        premiereDate: '',
-        description: '',
-        status: ''
+        id: props.movie.id,
+        title: props.movie.title,
+        genre: props.movie.genre,
+        releaseDate: props.movie.releaseDate,
+        director: props.movie.director,
+        description: props.movie.description,
     });
 
     const handleChange = (e) => {
@@ -52,13 +48,15 @@ const MovieEDialog = () => {
                             />
                         </div>
                         <div className={styles.movie_details}>
-                            <label>ID Movie:</label>
+                            <p style={{color:'aqua'}}>ID Movie: {movieData.id}</p>
+
+                            <label>Name movie:</label>
                             <input
                                 type="text"
-                                name="id"
-                                value={movieData.id}
+                                name="title"
+                                value={movieData.title}
                                 onChange={handleChange}
-                                placeholder="Movie ID"
+                                placeholder="Movie name"
                             />
 
                             <label>Thể loại:</label>
@@ -69,6 +67,13 @@ const MovieEDialog = () => {
                                 onChange={handleChange}
                                 placeholder="Thể loại"
                             />
+                            <label>Nội dung:</label>
+                            <textarea
+                                name="description"
+                                value={movieData.description}
+                                onChange={handleChange}
+                                placeholder="Nội dung"
+                            />
 
                             <label>Năm ra mắt:</label>
                             <input
@@ -76,14 +81,6 @@ const MovieEDialog = () => {
                                 name="releaseDate"
                                 value={movieData.releaseDate}
                                 onChange={handleChange}
-                            />
-                            <label>Thời lượng:</label>
-                            <input
-                                type="text"
-                                name="duration"
-                                value={movieData.duration}
-                                onChange={handleChange}
-                                placeholder="Thời lượng"
                             />
 
                             <label>Đạo diễn:</label>
@@ -95,46 +92,9 @@ const MovieEDialog = () => {
                                 placeholder="Đạo diễn"
                             />
                         </div>
-                        <div className={styles.movie_details}>
-
-                            <label>Diễn viên:</label>
-                            <input
-                                type="text"
-                                name="actors"
-                                value={movieData.actors}
-                                onChange={handleChange}
-                                placeholder="Diễn viên"
-                            />
-
-                            <label>Khởi chiếu:</label>
-                            <input
-                                type="date"
-                                name="premiereDate"
-                                value={movieData.premiereDate}
-                                onChange={handleChange}
-                            />
-
-                            <label>Nội dung:</label>
-                            <textarea
-                                name="description"
-                                value={movieData.description}
-                                onChange={handleChange}
-                                placeholder="Nội dung"
-                            />
-
-                            <label>Trạng thái:</label>
-                            <input
-                                type="text"
-                                name="status"
-                                value={movieData.status}
-                                onChange={handleChange}
-                                placeholder="Trạng thái"
-                            />
-
-                        </div>
                     </div>
                     <div className={styles.movie_actions}>
-                        <a href="#">Chỉnh sửa</a>
+                        <a href="#" onClick={handleSubmit}>Chỉnh sửa</a>
                         <a href="#" onClick={closeDialog}>Thoát</a>
                     </div>
                 </div>

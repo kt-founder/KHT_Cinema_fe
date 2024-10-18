@@ -1,5 +1,6 @@
-// src/axiosConfig.js
 import axios from 'axios';
+
+let refreshTokenPromise = null; // Biến lưu trữ Promise khi refresh token đang diễn ra
 
 // Tạo một instance của axios
 const User_axios = axios.create({
@@ -12,10 +13,10 @@ const User_axios = axios.create({
 // Interceptor cho request
 User_axios.interceptors.request.use(
     (config) => {
-        // Lấy token từ localStorage
+        // Lấy token từ sessionStorage
         const token = sessionStorage.getItem("HKT_ACCESS_TOKEN_USER");
 
-        // Nếu không thuộc public routes và cần token, thêm token vào header
+        // Nếu có token, thêm vào header Authorization
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -30,7 +31,6 @@ User_axios.interceptors.request.use(
 // Interceptor cho response
 User_axios.interceptors.response.use(
     (response) => {
-        // Nếu request thành công, trả về response như bình thường
         return response;
     },
     async (error) => {
@@ -40,27 +40,38 @@ User_axios.interceptors.response.use(
         if ((error.response.status === 401 || error.response.status === 403) && !originalRequest._retry) {
             originalRequest._retry = true;
 
-            try {
-                // Thực hiện request refresh token
-                const refreshToken = localStorage.getItem("HKT_REFRESH_TOKEN_USER");
-                const response = await User_axios.post('/refresh-token', {
-                    token: refreshToken,
-                });
+            // Nếu chưa có refresh token Promise, bắt đầu quá trình refresh
+            if (!refreshTokenPromise) {
+                refreshTokenPromise = (async () => {
+                    try {
+                        const refreshToken = localStorage.getItem("HKT_REFRESH_TOKEN_USER");
 
-                // Lưu token mới vào localStorage
-                const newToken = response.data.data.access_token;
-                sessionStorage.setItem("HKT_ACCESS_TOKEN_USER", newToken);
+                        // Thực hiện yêu cầu refresh token
+                        const response = await User_axios.post('/refresh-token', {
+                            token: refreshToken,
+                        });
 
-                // Cập nhật token vào header cho request ban đầu và thử lại request
-                originalRequest.headers.Authorization = `Bearer ${newToken}`;
-                return User_axios(originalRequest);
+                        const newToken = response.data.data.access_token;
+                        sessionStorage.setItem("HKT_ACCESS_TOKEN_USER", newToken);
 
-            } catch (refreshError) {
-                // Nếu refresh token không thành công, có thể chuyển hướng người dùng đến trang đăng nhập
-                console.error('Refresh token failed, redirecting to login...');
-                window.location.href = '/login'; // Hoặc bất kỳ URL nào cho trang đăng nhập của bạn
-                return Promise.reject(refreshError);
+                        // Hoàn tất quá trình refresh, trả về token mới
+                        return newToken;
+
+                    } catch (refreshError) {
+                        // Nếu refresh token không thành công, chuyển hướng đến trang đăng nhập
+                        console.error('Refresh token failed, redirecting to login...');
+                        window.location.href = '/login';
+                        return Promise.reject(refreshError);
+                    } finally {
+                        refreshTokenPromise = null; // Đặt lại Promise sau khi refresh hoàn tất
+                    }
+                })();
             }
+
+            // Đợi Promise được resolve và sử dụng token mới
+            const newToken = await refreshTokenPromise;
+            originalRequest.headers.Authorization = `Bearer ${newToken}`;
+            return User_axios(originalRequest);
         }
 
         return Promise.reject(error);

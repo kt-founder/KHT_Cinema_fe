@@ -3,7 +3,7 @@ import User_axios from "./User_Interceptors";
 import No_interceptors from "./No_interceptors";
 const API = {
 // --------------- API ADMIN --------------------
-    GetAllUser:() => Admin_axios.get("account/get-all-user"),
+    GetAllUser:() => Admin_axios.get("account/get-list-user"),
     GetAllAdmin:() => Admin_axios.get("account/get-all-admin"),
     DisableUser:() => Admin_axios.patch("account/lock"),
 // --------------- API USER ---------------------
