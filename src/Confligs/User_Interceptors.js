@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Tạo một instance của axios
 const User_axios = axios.create({
-    baseURL: 'https://localhost:8080/', // Đổi thành API của bạn
+    baseURL: 'http://localhost:8080/', // Đổi thành API của bạn
     headers: {
         'Content-Type': 'application/json',
     },

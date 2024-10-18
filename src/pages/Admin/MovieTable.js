@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './MovieTable.css';
 import MovieCDialog from "../../components/MovieCDialog"; // File CSS được cập nhật bên dưới
-
+import Api from '../../Confligs/Api'
+import {Spin} from "antd";
+import MovieRDialog from "../../components/MovieRDialog";
+import MovieEDialog from "../../components/MovieEDialog";
 const MovieTable = () => {
-    // Dữ liệu mẫu cho bảng phim
-    const movies = [
-        { id: 1, name: 'Inception', releaseDate: '2010-07-16', director: 'Christopher Nolan' },
-        { id: 2, name: 'Interstellar', releaseDate: '2014-11-07', director: 'Christopher Nolan' },
-        { id: 3, name: 'The Dark Knight', releaseDate: '2008-07-18', director: 'Christopher Nolan' },
-    ];
+    const [movies, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        setLoading(true)
+        // Sử dụng axiosInstance để gửi request
+        Api.GetAllMovie()
+            .then((response) => {
+                setData(response.data.data);
+                setLoading(false)
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
 
     return (
         <div className="movie-container">
@@ -30,32 +41,38 @@ const MovieTable = () => {
                     <th>Release Date</th>
                     <th>Director</th>
                     <th>isActive</th>
-                    <th style={{textAlign:'center'}}>Action</th>
+                    <th style={{textAlign: 'center'}}>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {movies.map((movie) => (
+                {movies != null && movies.map((movie) => (
                     <tr key={movie.id}>
                         <td>{movie.id}</td>
-                        <td>{movie.name}</td>
+                        <td>{movie.title}</td>
                         <td>{movie.releaseDate}</td>
                         <td>{movie.director}</td>
-                        <td>{movie.director}</td>
+                        <td>{movie.active.toString()}</td>
                         <td className="action-buttons">
-                            <button className="edit-button" style={{background: '#087373'}}><i
-                                className="fa-brands fa-readme"></i>
-                            </button>
-                            <button className="edit-button" style={{background: '#3498db'}}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                            </button>
+                            <MovieRDialog movie = {movie}/>
+                            <MovieEDialog movie = {movie}/>
                             <button className="delete-button">
-                                <i className="fa-solid fa-lock"></i>
+                                {movie.active ?
+                                    <i className="fa-solid fa-lock"></i>
+                                    :
+                                    <i className="fa-solid fa-unlock"></i>}
                             </button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
+            <div style={{marginTop: '20px'}}>
+                {loading ? (
+                    <Spin tip="Loading..." size="large"/>
+                ) :
+                    null
+                }
+            </div>
         </div>
     );
 };
