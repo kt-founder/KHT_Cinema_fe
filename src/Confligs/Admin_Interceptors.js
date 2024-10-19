@@ -1,9 +1,11 @@
 // src/axiosConfig.js
 import axios from 'axios';
+import No_interceptors from "./No_interceptors";
 
-// Tạo một instance của axios
+let refreshTokenPromise = null; // Biến lưu trữ Promise khi refresh token đang diễn ra
+
 const Admin_axios = axios.create({
-    baseURL: 'http://localhost:8080/', // Đổi thành API của bạn
+    baseURL: 'http://localhost:8080/',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -12,9 +14,8 @@ const Admin_axios = axios.create({
 // Interceptor cho request
 Admin_axios.interceptors.request.use(
     (config) => {
-        // Lấy token từ localStorage
         const token = sessionStorage.getItem("HKT_ACCESS_TOKEN_ADMIN");
-        // Nếu không thuộc public routes và cần token, thêm token vào header
+
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -29,7 +30,6 @@ Admin_axios.interceptors.request.use(
 // Interceptor cho response
 Admin_axios.interceptors.response.use(
     (response) => {
-        // Nếu request thành công, trả về response như bình thường
         return response;
     },
     async (error) => {
@@ -39,27 +39,40 @@ Admin_axios.interceptors.response.use(
         if ((error.response.status === 401 || error.response.status === 403) && !originalRequest._retry) {
             originalRequest._retry = true;
 
-            try {
-                // Thực hiện request refresh token
-                const refreshToken = localStorage.getItem("HKT_REFRESH_TOKEN_ADMIN");
-                const response = await Admin_axios.post('/refresh-token', {
-                    token: refreshToken,
-                });
+            // Nếu chưa có refresh token Promise, bắt đầu quá trình refresh
+            if (!refreshTokenPromise) {
+                refreshTokenPromise = (async () => {
+                    try {
+                        const refreshToken = localStorage.getItem("HKT_REFRESH_TOKEN_ADMIN");
 
-                // Lưu token mới vào localStorage
-                const newToken = response.data.data.access_token;
-                sessionStorage.setItem("HKT_ACCESS_TOKEN_ADMIN", newToken);
+                        // Thực hiện yêu cầu refresh token
+                        const response = await No_interceptors.post('/auth/refresh-token', {
+                            input: refreshToken,
+                        });
 
-                // Cập nhật token vào header cho request ban đầu và thử lại request
-                originalRequest.headers.Authorization = `Bearer ${newToken}`;
-                return Admin_axios(originalRequest);
+                        const newToken = response.data.data.access_token;
+                        sessionStorage.setItem("HKT_ACCESS_TOKEN_ADMIN", newToken);
 
-            } catch (refreshError) {
-                // Nếu refresh token không thành công, có thể chuyển hướng người dùng đến trang đăng nhập
-                console.error('Refresh token failed, redirecting to login...');
-                window.location.href = '/admin'; // Hoặc bất kỳ URL nào cho trang đăng nhập của bạn
-                return Promise.reject(refreshError);
+                        // Hoàn tất quá trình refresh, trả về token mới
+                        return newToken;
+
+                    } catch (refreshError) {
+                        alert("You must login again ")
+                        // Nếu refresh token không thành công, chuyển hướng đến trang đăng nhập
+                        console.error('Refresh token failed, redirecting to login...');
+                        sessionStorage.removeItem("HKT_ACCESS_TOKEN_ADMIN")
+                        window.location.href = '/admin';
+                        return Promise.reject(refreshError);
+                    } finally {
+                        refreshTokenPromise = null; // Đặt lại Promise sau khi refresh hoàn tất
+                    }
+                })();
             }
+
+            // Đợi Promise được resolve và sử dụng token mới
+            const newToken = await refreshTokenPromise;
+            originalRequest.headers.Authorization = `Bearer ${newToken}`;
+            return Admin_axios(originalRequest);
         }
 
         return Promise.reject(error);

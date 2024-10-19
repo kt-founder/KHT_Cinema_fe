@@ -1,17 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import './MovieTable.css';
-import MovieCDialog from "../../components/MovieCDialog"; // File CSS được cập nhật bên dưới
-import Api from '../../Confligs/Api'
+import React, {useEffect, useState} from "react";
+import Api from "../../Confligs/Api";
 import {notification, Spin} from "antd";
-import MovieRDialog from "../../components/MovieRDialog";
-import MovieEDialog from "../../components/MovieEDialog";
-const MovieTable = () => {
-    const [movies, setData] = useState(null);
+
+const UserTable = () => {
+    const [users, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true)
         // Sử dụng axiosInstance để gửi request
-        Api.GetAllMovie()
+        Api.GetAllUser()
             .then((response) => {
                 setData(response.data.data);
                 setLoading(false)
@@ -21,30 +18,26 @@ const MovieTable = () => {
             });
     }, []);
     const disable = (id) => {
-        Api.DisableMovie(id).then((res) => {
-            if (res.data.message === 'Movie deleted successfully'){
+        Api.DisableUser(id).then((res) => {
+            if (res.data.message === 'Successful'){
                 notification["success"]({
-                    message: "Change status movie successful",
+                    message: "Change status user successful",
                 });
                 window.location.reload()
             }
         }).catch((err)=>{
             console.log(err)
             notification["error"]({
-                message: "Change status movie not successful",
+                message: "Change status user not successful",
             });
         })
     }
     return (
         <div className="movie-container">
             <div className="movie-header">
-                {/*<h1>Movie</h1>*/}
                 <div className="search-box">
                     <input type="text" placeholder="Search..."/>
                     <i className="fas fa-search"></i>
-                </div>
-                <div style={{textAlign: 'right'}}>
-                    <MovieCDialog/>
                 </div>
             </div>
             <table className="movie-table">
@@ -52,28 +45,28 @@ const MovieTable = () => {
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Release Date</th>
-                    <th>Director</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Sdt</th>
                     <th>isActive</th>
                     <th style={{textAlign: 'center'}}>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {movies != null && movies.map((movie) => (
-                    <tr key={movie.id}>
-                        <td>{movie.id}</td>
-                        <td>{movie.title}</td>
-                        <td>{movie.releaseDate}</td>
-                        <td>{movie.director}</td>
-                        <td>{movie.active.toString()}</td>
+                {users != null && users.map((u) => (
+                    <tr key={u.id}>
+                        <td>{u.id}</td>
+                        <td>{u.name}</td>
+                        <td>{u.username}</td>
+                        <td>{u.email}</td>
+                        <td>{u.phone}</td>
+                        <td>{u.isActive.toString()}</td>
                         <td className="action-buttons">
-                            <MovieRDialog movie = {movie}/>
-                            <MovieEDialog movie = {movie}/>
                             <button className="delete-button">
-                                {movie.active ?
-                                    <i className="fa-solid fa-lock" onClick={() => disable(movie.id)}></i>
+                                {u.isActive ?
+                                    <i className="fa-solid fa-lock" onClick={() => disable(u.id)}></i>
                                     :
-                                    <i className="fa-solid fa-unlock" onClick={() => disable(movie.id)}></i>}
+                                    <i className="fa-solid fa-unlock" onClick={() => disable(u.id)}></i>}
                             </button>
                         </td>
                     </tr>
@@ -82,8 +75,8 @@ const MovieTable = () => {
             </table>
             <div style={{marginTop: '20px'}}>
                 {loading ? (
-                    <Spin tip="Loading..." size="large"/>
-                ) :
+                        <Spin tip="Loading..." size="large"/>
+                    ) :
                     null
                 }
             </div>
@@ -91,4 +84,4 @@ const MovieTable = () => {
     );
 };
 
-export default MovieTable;
+export default UserTable;

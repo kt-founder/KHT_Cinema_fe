@@ -73,13 +73,13 @@ function Login() {
             />
           </div>
           <div className="options">
-            <div>
+            <div style={{visibility:'hidden'}}>
               <input
                 type="checkbox"
                 checked={remember}
                 onChange={(e) => setRemember(e.target.checked)}
               />
-              <label>Nhớ mật khẩu</label>
+              {/*<label>Nhớ mật khẩu</label>*/}
             </div>
             <a href="/forgot-password">Quên mật khẩu?</a>
           </div>

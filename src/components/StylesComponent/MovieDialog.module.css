@@ -1,3 +1,4 @@
+/* Styles for the dialog container */
 .dialog_container {
     position: fixed;
     top: 0;
@@ -13,6 +14,7 @@
 
 .dialog {
     /*width: 60%;*/
+    /*width: 900px;*/
     max-width: 900px;
     background-color: #333;
     color: white;
@@ -22,55 +24,44 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.dialog img {
+    max-width: 100%;
+    /*height: auto;*/
+    height: 300px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
 .dialog_content {
     display: flex;
-    gap: 60px;
+    gap: 20px;
 }
 
 .movie_poster {
     width: 200px;
-    height: 200px;
     border-radius: 10px;
-    object-fit: cover;
 }
 
 .movie_details {
     flex-grow: 1;
 }
 
-.movie_title {
-    color: #00cccc;
+.movie_details h2 {
     margin-top: 0;
     font-size: 1.8em;
 }
 
-label {
-    display: block;
-    margin: 10px 0 5px;
+.movie_details p {
+    margin: 15px 0;
+}
+
+.classification {
+    color: red;
     font-weight: bold;
 }
 
-input,
-textarea {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 10px;
-    font-size: 1em;
-}
-
-input[type="date"] {
-    color: black;
-}
-
-textarea {
-    height: 60px;
-}
-
 .movie_actions {
-    margin-top: 40px;
-    text-align: center;
+    margin-top: 20px;
 }
 
 .movie_actions a {
@@ -86,15 +77,26 @@ textarea {
     background-color: #e69500;
 }
 
-.close_button {
-    background-color: #e74c3c;
+.close_btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: transparent;
     color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
+    font-size: 1.5em;
     border: none;
     cursor: pointer;
 }
 
-.close_button:hover {
-    background-color: #c0392b;
+.open_btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.open_btn:hover {
+    background-color: #0056b3;
 }
