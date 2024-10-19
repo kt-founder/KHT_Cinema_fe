@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import sty from './StylesComponent/MovieCDialog.module.css';
 import styles from "./StylesComponent/MovieEDialog.module.css";
+import Api from "../Confligs/Api";
+import {notification} from "antd";
 
 const MovieCDialog = () => {
     const [movieData, setMovieData] = useState({
@@ -9,7 +11,7 @@ const MovieCDialog = () => {
         releaseDate: '',
         director: '',
         description: '',
-        status: true
+        isActive: true
     });
 
     const handleChange = (e) => {
@@ -23,6 +25,19 @@ const MovieCDialog = () => {
     const handleSubmit = () => {
         // Handle submit action (e.g., send data to API)
         console.log('Submitted movie data:', movieData);
+        Api.CreatMovie(movieData).then((res) => {
+            if (res.data.message === 'Successful'){
+                notification["success"]({
+                    message: "Create movie successful",
+                });
+                window.location.reload()
+            }
+        }).catch((err)=>{
+            console.log(err)
+            notification["error"]({
+                message: "Create movie not successful",
+            });
+        })
     };
     const [open, setOpen] = useState(false);
     const openDialog = () => {

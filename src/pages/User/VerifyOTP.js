@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import styles from '../styles/OtpVerification.module.css'; // Import CSS Module
+import styles from '../styles/OtpVerification.module.css';
+import {useLocation, useNavigate} from "react-router-dom"; // Import CSS Module
 
 const VerifyOtp = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const receivedData = location.state;
+    const [error, setError] = useState(null);
     const [otp, setOtp] = useState(new Array(5).fill(""));
 
     const handleChange = (element, index) => {
@@ -16,8 +21,16 @@ const VerifyOtp = () => {
     };
 
     const handleSubmit = () => {
+        setError(null)
+        const otp_input = otp.join("")
         // Submit OTP logic here
-        console.log("Entered OTP is:", otp.join(""));
+        console.log("Entered OTP is:", otp_input);
+        if (otp_input === receivedData.code){
+            navigate('/update-pass-word',{state: receivedData.id})
+        }
+        else {
+            setError("Vui lòng nhập lại OTP")
+        }
     };
 
     return (
@@ -43,10 +56,12 @@ const VerifyOtp = () => {
                     <button className={styles.verify_button} onClick={handleSubmit}>
                         XÁC NHẬN
                     </button>
-
+                    {err && <div className={styles.footer}>
+                        <span style={{marginRight: '10px'}}>{err}</span>
+                    </div>}
                     <div className={styles.footer}>
-                        <span style={{marginRight:'10px'}}>Bạn chưa nhận được mã OTP?</span>
-                        <a onClick={null} style={{cursor:'pointer'}}>Gửi lại mã</a>
+                        <span style={{marginRight: '10px'}}>Bạn chưa nhận được mã OTP?</span>
+                        <a onClick={null} style={{cursor: 'pointer'}}>Gửi lại mã</a>
                     </div>
                 </div>
             </div>

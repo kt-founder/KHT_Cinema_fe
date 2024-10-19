@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './MovieTable.css';
 import MovieCDialog from "../../components/MovieCDialog"; // File CSS được cập nhật bên dưới
 import Api from '../../Confligs/Api'
-import {Spin} from "antd";
+import {notification, Spin} from "antd";
 import MovieRDialog from "../../components/MovieRDialog";
 import MovieEDialog from "../../components/MovieEDialog";
 const MovieTable = () => {
@@ -20,7 +20,21 @@ const MovieTable = () => {
                 console.error('Error fetching data:', error);
             });
     }, []);
-
+    const disable = (id) => {
+        Api.DisableMovie(id).then((res) => {
+            if (res.data.message === 'Successful'){
+                notification["success"]({
+                    message: "Change status movie successful",
+                });
+                window.location.reload()
+            }
+        }).catch((err)=>{
+            console.log(err)
+            notification["error"]({
+                message: "Change status movie not successful",
+            });
+        })
+    }
     return (
         <div className="movie-container">
             <div className="movie-header">
@@ -57,9 +71,9 @@ const MovieTable = () => {
                             <MovieEDialog movie = {movie}/>
                             <button className="delete-button">
                                 {movie.active ?
-                                    <i className="fa-solid fa-lock"></i>
+                                    <i className="fa-solid fa-lock" onClick={() => disable(movie.id)}></i>
                                     :
-                                    <i className="fa-solid fa-unlock"></i>}
+                                    <i className="fa-solid fa-unlock" onClick={() => disable(movie.id)}></i>}
                             </button>
                         </td>
                     </tr>

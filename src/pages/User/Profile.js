@@ -1,8 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '../styles/UserProfile.module.css';
 import UserEDialog from "../../components/UserEDialog";
+import Api from "../../Confligs/Api";
 
 const Profile = () => {
+    const [user, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        setLoading(true)
+        // Sử dụng axiosInstance để gửi request
+        Api.GetMyInFor()
+            .then((response) => {
+                setData(response.data.data);
+                setLoading(false)
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
     const getBack = () => {
         window.history.back()
     }
@@ -14,7 +29,7 @@ const Profile = () => {
                 </div>
                 <ul className={styles.sidebarMenu}>
                     <li className={styles.active}>Public profile</li>
-                    <UserEDialog/>
+                    <UserEDialog user = {user}/>
                     <li>Change password</li>
                     <li>History booking</li>
                 </ul>
@@ -30,16 +45,16 @@ const Profile = () => {
                 <div className={styles.profileDetails}>
                     <div className={styles.profileInfo}>
                         <label>Name</label>
-                        <input type="text"  disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value="Name"/>
+                        <input type="text"  disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value={user.name != null ? user.name : null}/>
 
                         <label>Username</label>
-                        <input type="text" disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value="Name"/>
+                        <input type="text" disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value={user.username != null ? user.username : null}/>
 
                         <label>Public email</label>
-                        <input type="email" disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value="Name"/>
+                        <input type="email" disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value={user.email != null ? user.email : null}/>
 
                         <label>Phone</label>
-                        <input disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value="Name"></input>
+                        <input disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value={user.phone != null ? user.phone : null}></input>
                     </div>
                 </div>
             </div>

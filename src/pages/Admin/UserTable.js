@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Api from "../../Confligs/Api";
-import {Spin} from "antd";
+import {notification, Spin} from "antd";
 
 const UserTable = () => {
     const [users, setData] = useState(null);
@@ -17,6 +17,21 @@ const UserTable = () => {
                 console.error('Error fetching data:', error);
             });
     }, []);
+    const disable = (id) => {
+        Api.DisableUser(id).then((res) => {
+            if (res.data.message === 'Successful'){
+                notification["success"]({
+                    message: "Change status user successful",
+                });
+                window.location.reload()
+            }
+        }).catch((err)=>{
+            console.log(err)
+            notification["error"]({
+                message: "Change status user not successful",
+            });
+        })
+    }
     return (
         <div className="movie-container">
             <div className="movie-header">
@@ -49,9 +64,9 @@ const UserTable = () => {
                         <td className="action-buttons">
                             <button className="delete-button">
                                 {u.isActive ?
-                                    <i className="fa-solid fa-lock"></i>
+                                    <i className="fa-solid fa-lock" onClick={() => disable(movie.id)}></i>
                                     :
-                                    <i className="fa-solid fa-unlock"></i>}
+                                    <i className="fa-solid fa-unlock" onClick={() => disable(movie.id)}></i>}
                             </button>
                         </td>
                     </tr>

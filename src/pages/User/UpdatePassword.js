@@ -1,28 +1,45 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/Login.css';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import Api from "../../Confligs/Api";
+import {notification} from "antd";
 
-function ForgotPassword() {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
+function UpdatePassword() {
+    const [password, setPass] = useState('');
+    const [checkPassword, setCPass] = useState('');
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
+    const location = useLocation();
+    const receivedData = location.state;
     const handleLogic = () => {
         const data = {
-            username: username,
-            email: email
+            id: receivedData.id,
+            password: password
         }
-        Api.ForgotPassword(data).then((res) => {
-            const receive = res.data.data;
-            if (receive != null){
-                navigate('/verify', {state: receive})
+        const handleLogic = () => {
+            if (password === checkPassword){
+                Api.UpdatePassword(data).then((res) => {
+                    const receive = res.data.data;
+                    if (receive != null){
+                        notification["success"]({
+                            message: "Update password successful",
+                        });
+                        window.location.href = 'login'
+                    }
+                }).catch((err) => {
+                    console.log(err)
+                    notification["error"]({
+                        message: "Update password not successful",
+                    });
+
+                    setError("err")
+                })
+            } else{
+                setPass('')
+                setCPass('')
+                setError("Please enter again")
             }
-        }).catch((err) => {
-            console.log(err)
-            setError("Username or email not correct")
-        })
+        }
     }
 
     return (
@@ -58,4 +75,4 @@ function ForgotPassword() {
     );
 }
 
-export default ForgotPassword;
+export default UpdatePassword;

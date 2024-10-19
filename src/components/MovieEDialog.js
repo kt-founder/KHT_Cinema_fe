@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './StylesComponent/MovieEDialog.module.css';
+import Api from "../Confligs/Api";
+import {notification} from "antd";
 
 const MovieEDialog = (props) => {
     const [movieData, setMovieData] = useState({
@@ -22,6 +24,19 @@ const MovieEDialog = (props) => {
     const handleSubmit = () => {
         // Handle submit action (e.g., send data to API)
         console.log('Submitted movie data:', movieData);
+        Api.UpdateMovie(movieData.id,movieData).then((res) => {
+            if (res.data.message === 'Successful'){
+                notification["success"]({
+                    message: "Update movie successful",
+                });
+                window.location.reload()
+            }
+        }).catch((err)=>{
+            console.log(err)
+            notification["error"]({
+                message: "Update movie not successful",
+            });
+        })
     };
     const [open, setOpen] = useState(false);
     const openDialog = () => {
