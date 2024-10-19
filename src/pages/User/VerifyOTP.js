@@ -56,8 +56,8 @@ const VerifyOtp = () => {
                     <button className={styles.verify_button} onClick={handleSubmit}>
                         XÁC NHẬN
                     </button>
-                    {err && <div className={styles.footer}>
-                        <span style={{marginRight: '10px'}}>{err}</span>
+                    {error && <div className={styles.footer}>
+                        <span style={{marginRight: '10px'}}>{error}</span>
                     </div>}
                     <div className={styles.footer}>
                         <span style={{marginRight: '10px'}}>Bạn chưa nhận được mã OTP?</span>

@@ -11,6 +11,8 @@ const MovieEDialog = (props) => {
         releaseDate: props.movie.releaseDate,
         director: props.movie.director,
         description: props.movie.description,
+        duration:props.movie.duration,
+        actor:props.movie.actor
     });
 
     const handleChange = (e) => {
@@ -63,7 +65,7 @@ const MovieEDialog = (props) => {
                             />
                         </div>
                         <div className={styles.movie_details}>
-                            <p style={{color:'aqua'}}>ID Movie: {movieData.id}</p>
+                            <p style={{color: 'aqua'}}>ID Movie: {movieData.id}</p>
 
                             <label>Name movie:</label>
                             <input
@@ -105,6 +107,24 @@ const MovieEDialog = (props) => {
                                 value={movieData.director}
                                 onChange={handleChange}
                                 placeholder="Đạo diễn"
+                            />
+
+                            <label>Name movie:</label>
+                            <input
+                                type="text"
+                                name="duration"
+                                value={movieData.duration}
+                                onChange={handleChange}
+                                placeholder="Movie duration"
+                            />
+                            <label>Name movie:</label>
+
+                            <input
+                                type="text"
+                                name="actor"
+                                value={movieData.actor}
+                                onChange={handleChange}
+                                placeholder="Movie actor"
                             />
                         </div>
                     </div>

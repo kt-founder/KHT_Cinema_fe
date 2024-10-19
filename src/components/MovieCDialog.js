@@ -11,7 +11,9 @@ const MovieCDialog = () => {
         releaseDate: '',
         director: '',
         description: '',
-        isActive: true
+        isActive: true,
+        duration:'',
+        actor:''
     });
 
     const handleChange = (e) => {
@@ -105,6 +107,24 @@ const MovieCDialog = () => {
                                     value={movieData.director}
                                     onChange={handleChange}
                                     placeholder="Đạo diễn"
+                                />
+
+                                <label>Name movie:</label>
+                                <input
+                                    type="text"
+                                    name="duration"
+                                    value={movieData.duration}
+                                    onChange={handleChange}
+                                    placeholder="Movie duration"
+                                />
+                                <label>Name movie:</label>
+
+                                <input
+                                    type="text"
+                                    name="actor"
+                                    value={movieData.actor}
+                                    onChange={handleChange}
+                                    placeholder="Movie actor"
                                 />
                             </div>
                         </div>

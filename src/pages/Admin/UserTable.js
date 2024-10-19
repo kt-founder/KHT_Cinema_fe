@@ -64,9 +64,9 @@ const UserTable = () => {
                         <td className="action-buttons">
                             <button className="delete-button">
                                 {u.isActive ?
-                                    <i className="fa-solid fa-lock" onClick={() => disable(movie.id)}></i>
+                                    <i className="fa-solid fa-lock" onClick={() => disable(u.id)}></i>
                                     :
-                                    <i className="fa-solid fa-unlock" onClick={() => disable(movie.id)}></i>}
+                                    <i className="fa-solid fa-unlock" onClick={() => disable(u.id)}></i>}
                             </button>
                         </td>
                     </tr>
