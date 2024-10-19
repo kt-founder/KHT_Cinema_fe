@@ -22,7 +22,7 @@ const MovieTable = () => {
     }, []);
     const disable = (id) => {
         Api.DisableMovie(id).then((res) => {
-            if (res.data.message === 'Successful'){
+            if (res.data.message === 'Movie deleted successfully'){
                 notification["success"]({
                     message: "Change status movie successful",
                 });

@@ -109,7 +109,7 @@ const MovieEDialog = (props) => {
                                 placeholder="Đạo diễn"
                             />
 
-                            <label>Name movie:</label>
+                            <label>Duration:</label>
                             <input
                                 type="text"
                                 name="duration"
@@ -117,7 +117,7 @@ const MovieEDialog = (props) => {
                                 onChange={handleChange}
                                 placeholder="Movie duration"
                             />
-                            <label>Name movie:</label>
+                            <label>Actor:</label>
 
                             <input
                                 type="text"

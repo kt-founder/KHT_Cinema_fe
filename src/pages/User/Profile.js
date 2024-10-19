@@ -4,11 +4,16 @@ import UserEDialog from "../../components/UserEDialog";
 import Api from "../../Confligs/Api";
 
 const Profile = () => {
-    const [user, setData] = useState(null);
+    const [user, setData] = useState({
+        id: '',
+        name: '',
+        username: '',
+        phone: '',
+        email: ''
+    });
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true)
-        // Sử dụng axiosInstance để gửi request
         Api.GetMyInFor()
             .then((response) => {
                 setData(response.data.data);
@@ -19,7 +24,7 @@ const Profile = () => {
             });
     }, []);
     const getBack = () => {
-        window.history.back()
+        window.location.href = '/'
     }
     return (
         <div className={styles.container}>
@@ -43,19 +48,23 @@ const Profile = () => {
                     <img src="https://via.placeholder.com/150" alt="Profile"/>
                 </div>
                 <div className={styles.profileDetails}>
-                    <div className={styles.profileInfo}>
+                    {user && <div className={styles.profileInfo}>
                         <label>Name</label>
-                        <input type="text"  disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value={user.name != null ? user.name : null}/>
+                        <input type="text" disabled={true} style={{color: '#13b3b3', marginBottom: '30px'}}
+                               value={user.name != null ? user.name : null}/>
 
                         <label>Username</label>
-                        <input type="text" disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value={user.username != null ? user.username : null}/>
+                        <input type="text" disabled={true} style={{color: '#13b3b3', marginBottom: '30px'}}
+                               value={user.username != null ? user.username : null}/>
 
-                        <label>Public email</label>
-                        <input type="email" disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value={user.email != null ? user.email : null}/>
+                        <label>Email</label>
+                        <input type="email" disabled={true} style={{color: '#13b3b3', marginBottom: '30px'}}
+                               value={user.email != null ? user.email : null}/>
 
                         <label>Phone</label>
-                        <input disabled={true} style={{color: '#13b3b3', marginBottom:'30px'}} value={user.phone != null ? user.phone : null}></input>
-                    </div>
+                        <input disabled={true} style={{color: '#13b3b3', marginBottom: '30px'}}
+                               value={user.phone != null ? user.phone : null}></input>
+                    </div>}
                 </div>
             </div>
         </div>

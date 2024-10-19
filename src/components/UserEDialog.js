@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './StylesComponent/MovieEDialog.module.css';
 import Api from "../Confligs/Api";
 import {notification} from "antd";
 
 const UserEDialog = (props) => {
-    const [userData, setMovieData] = useState({
+    const [userData, setData] = useState({
         id: props.user.id,
         name: props.user.name,
         username: props.user.username,
@@ -12,11 +12,15 @@ const UserEDialog = (props) => {
         email: props.user.email
     });
 
+    useEffect(() => {
+        setData(props.user);
+    }, [props.user]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setMovieData({
+        setData({
             ...userData,
-            [name]: value
+            [name]: value,
         });
     };
 
@@ -62,6 +66,7 @@ const UserEDialog = (props) => {
                             <div className={styles.movie_details}>
                                 <label>Username:</label>
                                 <input
+                                    style={{color: '#13b3b3', marginBottom: '30px'}}
                                     disabled={true}
                                     type="text"
                                     name="username"
@@ -72,6 +77,7 @@ const UserEDialog = (props) => {
 
                                 <label>Email:</label>
                                 <input
+                                    style={{color: '#13b3b3', marginBottom: '30px'}}
                                     disabled={true}
                                     type="text"
                                     name="email"
@@ -80,15 +86,17 @@ const UserEDialog = (props) => {
                                     placeholder="Thể loại"
                                 />
                                 <label>Name:</label>
-                                <textarea
+                                <input
+                                    style={{color: '#13b3b3', marginBottom: '30px'}}
                                     name="name"
                                     value={userData.name}
                                     onChange={handleChange}
-                                    placeholder="Nội dung"
+                                    placeholder="Name"
                                 />
 
                                 <label>Phone:</label>
                                 <input
+                                    style={{color: '#13b3b3', marginBottom: '30px'}}
                                     type="text"
                                     name="phone"
                                     value={userData.phone}

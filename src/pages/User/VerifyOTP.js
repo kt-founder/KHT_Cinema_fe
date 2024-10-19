@@ -25,8 +25,9 @@ const VerifyOtp = () => {
         const otp_input = otp.join("")
         // Submit OTP logic here
         console.log("Entered OTP is:", otp_input);
+        console.log(receivedData)
         if (otp_input === receivedData.code){
-            navigate('/update-pass-word',{state: receivedData.id})
+            navigate('/update-password',{state: receivedData.id})
         }
         else {
             setError("Vui lòng nhập lại OTP")
@@ -38,8 +39,8 @@ const VerifyOtp = () => {
             <div className="login-box">
                 <div className={styles.otp_verification_container}>
                     <h2>XÁC THỰC</h2>
-                    <p>Nhập mã OTP đã gửi qua email:</p>
-                    <p>abcd@gmail.com</p>
+                    <p>Nhập mã OTP đã gửi qua email bạn cung cấp</p>
+                    {/*<p>abcd@gmail.com</p>*/}
                     <div className={styles.otp_inputs}>
                         {otp.map((data, index) => (
                             <input

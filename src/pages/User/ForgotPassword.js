@@ -9,15 +9,21 @@ function ForgotPassword() {
     const [email, setEmail] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const handleLogic = () => {
+    const handleLogic = (event) => {
+        event.preventDefault();
         const data = {
             username: username,
             email: email
         }
         Api.ForgotPassword(data).then((res) => {
             const receive = res.data.data;
+            console.log(receive)
             if (receive != null){
+                console.log('hello')
                 navigate('/verify', {state: receive})
+            }
+            else {
+                setError("Username or email not correct")
             }
         }).catch((err) => {
             console.log(err)

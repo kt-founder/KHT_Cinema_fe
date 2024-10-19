@@ -37,7 +37,7 @@ const MovieDialog = (props) => {
                                 <p><strong>ID Movie:</strong> {props.movie.id}</p>
                                 <p><strong>Thể loại:</strong> {props.movie.genre}</p>
                                 <p><strong>Năm ra mắt:</strong> {props.movie.releaseDate}</p>
-                                <p><strong>Thời lượng:</strong> {props.movie.actor}</p>
+                                <p><strong>Thời lượng:</strong> {props.movie.duration}</p>
                                 <p><strong>Đạo diễn:</strong> {props.movie.director}</p>
                                 <p><strong>Diễn viên:</strong> {props.movie.actor}</p>
                                 <p><strong>Khởi chiếu:</strong> 01/11/2024</p>
