@@ -1,26 +1,29 @@
 // src/components/Navbar.js
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Menu } from 'antd';
-import logo from "../assets/images/logo2.png"
+import logo from "../assets/images/logo2.png";
+import './StylesComponent/Navbar.css';  // Import CSS
 
 const Navbar = () => {
-    const [username, setUserName] = useState(sessionStorage.getItem("userName"))
-    const handleLogout = async(e) => {
+    const [username, setUserName] = useState(sessionStorage.getItem("userName"));
+
+    const handleLogout = async (e) => {
         e.preventDefault();
-        console.log("logout click")
-        sessionStorage.removeItem("userName")
-        sessionStorage.removeItem("HTK_ACCESS_TOKEN_USER")
-        sessionStorage.removeItem("HTK_REFRESH_TOKEN_USER")
-        window.location.href = '/'
-    }
+        console.log("logout click");
+        sessionStorage.removeItem("userName");
+        sessionStorage.removeItem("HTK_ACCESS_TOKEN_USER");
+        sessionStorage.removeItem("HTK_REFRESH_TOKEN_USER");
+        window.location.href = '/';
+    };
+
     return (
-        <Menu mode="horizontal" style={{ backgroundColor: '#0000FF', color: '#0000FF', justifyContent: 'center', padding: '10px 5' }}>
-            <Menu.Item key="logo" style={{ padding: '0 20px' }}>
+        <Menu mode="horizontal" className="navbar">
+            <Menu.Item key="logo" style={{  padding: '20 50px' }}>
                 <a href="/">
                     <img
                         src={logo}  // Đường dẫn đến logo
                         alt="Logo"
-                        style={{ height: '75px', marginRight: '70px' }} // Điều chỉnh kích thước logo
+                        className="logo"  // Thêm class logo cho hình ảnh
                     />
                 </a>
             </Menu.Item>
@@ -30,16 +33,23 @@ const Navbar = () => {
             <Menu.Item key="price" style={{ color: '#fff' }}>Giá vé</Menu.Item>
             <Menu.Item key="festival" style={{ color: '#fff' }}>Liên hoan phim</Menu.Item>
             <Menu.Item key="about" style={{ color: '#fff' }}>Giới thiệu</Menu.Item>
-            <Menu.Item key="about" style={{ color: '#fff' }}>
-                {username == null ?
+            <Menu.Item key="auth" style={{ color: '#fff' }}>
+                {username == null ? (
                     <div>
-                        <Menu.Item key="Login" href="/login" style={{ color: '#fff' }}> <a href="/Login">Đăng nhập</a></Menu.Item>
+                        <Menu.Item key="Login" href="/login" style={{ color: '#fff' }}>
+                            <a href="/Login">Đăng nhập</a>
+                        </Menu.Item>
                     </div>
-                    :
+                ) : (
                     <div>
-                        <Menu.Item key="SignUp" style={{ color: '#fff' }}><a href="/myInfor">Username: {username}</a></Menu.Item>
-                        <Menu.Item key="Login" href="/login" style={{ color: '#fff' }}> <a onClick={handleLogout}>Đăng xuất</a></Menu.Item>
-                    </div>}
+                        <Menu.Item key="SignUp" style={{ color: '#fff' }}>
+                            <a href="/myInfor">Username: {username}</a>
+                        </Menu.Item>
+                        <Menu.Item key="Logout" href="/login" style={{ color: '#fff' }}>
+                            <a onClick={handleLogout}>Đăng xuất</a>
+                        </Menu.Item>
+                    </div>
+                )}
             </Menu.Item>
         </Menu>
     );

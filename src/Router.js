@@ -8,7 +8,8 @@ import LoginAdmin from "./pages/Admin/LoginAdmin";
 import MovieTable from "./pages/Admin/MovieTable";
 import CinemaTable from "./pages/Admin/CinemallTable";
 import UserProfile from "./pages/User/Profile";
-
+import MovieList from './components/MovieList';
+import MovieDetail from './pages/User/MovieDetail';
 
 function AppRouter() {
     return (
@@ -23,6 +24,10 @@ function AppRouter() {
                 <Route path="movie" element={<MovieTable />} />
                 <Route path="cinema" element={<CinemaTable />} />
             </Route>
+
+            <Route path="/" element={<MovieList />} />
+            <Route path="/movies/:id" element={<MovieDetail />} /> {/* Route cho chi tiết phim */}
+
         </Routes>
     );
 }
