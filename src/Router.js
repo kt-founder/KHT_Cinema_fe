@@ -12,6 +12,8 @@ import UserTable from "./pages/Admin/UserTable";
 import ForgotPassword from "./pages/User/ForgotPassword";
 import VerifyOTP from "./pages/User/VerifyOTP";
 import UpdatePassword from "./pages/User/UpdatePassword";
+import MovieList from "./components/MovieList";
+import MovieDetail from "./pages/User/MovieDetail";
 
 
 function AppRouter() {
@@ -24,6 +26,8 @@ function AppRouter() {
             <Route path="/forgot-password" element={<ForgotPassword/>} />
             <Route path="/verify" element={<VerifyOTP/>} />
             <Route path="/update-password" element={<UpdatePassword/>} />
+            <Route path="/" element={<MovieList />} />
+            <Route path="/movies/:id" element={<MovieDetail />} /> {/* Route cho chi tiết phim */}
             <Route  path="/admin" element={sessionStorage.getItem("HKT_ACCESS_TOKEN_ADMIN") != null ? <AdminLayout /> : <LoginAdmin/>}>
                 {/* Các route con của /admin */}
                 <Route path="dashboard" element={<Dashboard />} />
