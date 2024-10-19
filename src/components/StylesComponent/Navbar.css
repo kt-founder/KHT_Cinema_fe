@@ -1,0 +1,20 @@
+/* src/StylesComponent/Navbar.css */
+.navbar {
+    position: fixed;   /* Cố định vị trí navbar */
+    top: 0;            /* Căn chỉnh navbar ở đầu trang */
+    left: 0;
+    width: 100%;       /* Đảm bảo navbar bao phủ toàn bộ chiều ngang */
+
+    z-index: 1000;     /* Đảm bảo navbar luôn nằm trên các thành phần khác */
+    background-color: #0000FF;  /* Màu nền cho navbar */
+    padding: 10px 5px;
+}
+
+.navbar img {
+    height: 30px;
+    margin-right: 300px;
+}
+
+.content {
+    margin-top: 200px;  /* Tạo khoảng cách với phần nội dung bên dưới navbar */
+}

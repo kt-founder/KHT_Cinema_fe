@@ -1,0 +1,33 @@
+/* src/StylesComponent/CarouselSection.css */
+
+.carousel {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.carousel .slick-prev, .carousel .slick-next {
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);  /* Màu nền cho nút */
+    border-radius: 50%;              /* Tạo nút tròn */
+}
+
+.carousel .slick-prev:hover, .carousel .slick-next:hover {
+    background: rgba(0, 0, 0, 0.8);  /* Tăng độ tối khi hover */
+}
+
+.carousel .slick-prev {
+    left: 10px;  /* Đặt nút điều hướng trái */
+}
+
+.carousel .slick-next {
+    right: 10px;  /* Đặt nút điều hướng phải */
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Đảm bảo ảnh không bị méo */
+}
