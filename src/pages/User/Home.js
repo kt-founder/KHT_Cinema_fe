@@ -7,8 +7,9 @@ import '../styles/global.css';
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import MovieList from "../../components/MovieList";
-import Promotion from "../../components/Promotion";
-import Events from "../../components/Events";  // Import file CSS
+
+import CarouselSection from "../../components/CarouselSection";
+
 
 const { Header, Content, Sider } = Layout;
 
@@ -21,9 +22,11 @@ const Home = () => {
             <Layout className="full-width">
                 <Content className="full-container" style={{ margin: '0', backgroundColor: '#000' }}>
                     <div className="full-row">
+
+                       <CarouselSection/>
                         <MovieList />
-                        <Promotion />
-                        <Events />
+
+
                     </div>
                 </Content>
             </Layout>

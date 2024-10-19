@@ -6,6 +6,9 @@ const API = {
     GetAllUser:() => Admin_axios.get("account/get-list-user"),
     GetAllAdmin:() => Admin_axios.get("account/get-all-admin"),
     DisableUser:(id) => Admin_axios.patch(`account/deleta/${id}`),
+    // API CinemaHall
+    GetAllCinemaHall: () => Admin_axios.get("/cinema-halls/get-all"),
+    ChangeStatusCinemaHall: (id,isActive) => Admin_axios.put(`/cinema-halls/change-status/${id}?isActive=${isActive}`),
 
 // --------------- API USER ---------------------
     GetMyInFor:() => User_axios.get("account/get-my-infor"),
