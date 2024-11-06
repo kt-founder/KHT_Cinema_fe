@@ -1,0 +1,264 @@
+/* App container */
+.app {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 700px;
+    margin: 40px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.search_container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search_input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search_button {
+    padding: 8px 12px;
+    border: 1px solid #333;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.search_button:hover {
+    background-color: #0056b3;
+}
+
+.search_results {
+    margin-bottom: 20px;
+    text-align: center;
+}
+/* Date input block */
+.date_input_block {
+    text-align: center;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Inputs for day, month, year */
+.date_input {
+    padding: 8px;
+    width: 60px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.date_input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Button styles */
+.add_button,
+.time_button,
+.close_button,
+.delete_button {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Primary button style (e.g., Lưu ngày, Thêm giờ) */
+.add_button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
+
+.add_button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Delete day or time button style */
+.delete_button {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+}
+
+.delete_button:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+/* Time input block */
+.time_input_block {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+/* Input for hours and minutes */
+.time_input {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 80px;
+    text-align: center;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.time_input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Save time button */
+.time_button {
+    background-color: #ffc107;
+    border: none;
+    color: #333;
+}
+
+.time_button:hover {
+    background-color: #e0a800;
+    transform: scale(1.05);
+}
+
+/* Close button */
+.close_button {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+}
+
+.close_button:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+/* Date block style */
+.date_block {
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Date header */
+.date_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Times list style */
+.times_list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.time_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border: 1px solid #007bff;
+    background-color: #e0f0ff;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Error message */
+.error_message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    text-align: center;
+}
+.check_button {
+    padding: 8px 12px;
+    margin-left: 5px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.room_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.room_button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.room_button:hover {
+    background-color: #0056b3;
+}
+.results_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results_table th,
+.results_table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.results_table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.results_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.results_table tr:hover {
+    background-color: #ddd;
+}
+
+.results_table td {
+    font-size: 16px;
+}
+

@@ -14,6 +14,9 @@ import VerifyOTP from "./pages/User/VerifyOTP";
 import UpdatePassword from "./pages/User/UpdatePassword";
 import MovieList from "./components/MovieList";
 import MovieDetail from "./pages/User/MovieDetail";
+import ShowTimeComponent from "./pages/Admin/ShowTime/ShowTimeComponent";
+import ShowTimeCreate from "./pages/Admin/ShowTime/Create/ShowTimeCreate";
+import ShowTimeHistory from "./pages/Admin/ShowTime/Read/ShowTimeHistory";
 
 
 function AppRouter() {
@@ -34,6 +37,9 @@ function AppRouter() {
                 <Route path="movie" element={<MovieTable />} />
                 <Route path="cinema" element={<CinemaTable />} />
                 <Route path="manage-user" element={<UserTable/>}/>
+                <Route path="showtime" element={<ShowTimeComponent/>} />
+                <Route path="create-show-time" element={<ShowTimeCreate/>}/>
+                <Route path="history-create-showtime" element={<ShowTimeHistory/>}/>
             </Route>
         </Routes>
     );

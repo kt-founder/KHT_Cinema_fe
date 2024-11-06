@@ -1,0 +1,57 @@
+.top_buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btn_style {
+    margin: 20px;
+    padding: 8px 12px;
+    border: 1px solid #d3c8c8;
+    background-color: #dfd9d9;
+    cursor: pointer;
+}
+.btn_style_min {
+    margin: 5px;
+    padding: 8px 12px;
+    border: 1px solid #d3c8c8;
+    background-color: #dfd9d9;
+    cursor: pointer;
+}
+.date_display {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.movie_schedule {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.movie_block {
+    border-top: 1px solid black;
+    padding-top: 10px;
+}
+
+.icons {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.schedule {
+    /*display: flex;*/
+    flex-wrap: wrap;
+    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.time_slot {
+    border:  1px solid #252424;
+    display: flex;
+}
