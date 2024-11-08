@@ -1,0 +1,57 @@
+.showtime-table-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+.date-picker-button {
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.date-picker-button:hover {
+    background-color: #E64A19;
+}
+
+.showtime-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.showtime-table th, .showtime-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.showtime-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.showtime-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.showtime-table tr:hover {
+    background-color: #f1f1f1;
+}

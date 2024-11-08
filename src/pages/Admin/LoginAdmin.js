@@ -6,7 +6,6 @@ import "../styles/Login.css";
 function LoginAdmin() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false);
     const [error, setError] = useState(null);
 
     const handleLogin = async (e) => {
