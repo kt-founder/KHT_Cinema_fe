@@ -16,6 +16,7 @@ const API = {
 
 // ---------- API not request token -------------
     GetAllMovie:() => No_interceptors.get("movies/get-all"),
+    GetMovieById: (id) => No_interceptors.get(`movies/get/${id}`), // Thêm API mới
     LoginByAdmin:(data) => No_interceptors.post("auth/login-admin", data),
     LoginByUser:(data) => No_interceptors.post("auth/login-user", data),
     SignUpUser:(data) =>  No_interceptors.post("auth/signup",data),
@@ -23,6 +24,10 @@ const API = {
     UpdatePassword:(data) => No_interceptors.patch("auth/update-password",data),
     UpdateMovie:(id, data) => No_interceptors.put(`movies/update/${id}`,data),
     CreatMovie:(data) => No_interceptors.post("movies/create",data),
-    DisableMovie:(id) => No_interceptors.delete(`movies/delete/${id}`)
+    DisableMovie:(id) => No_interceptors.delete(`movies/delete/${id}`),
+    // ---------- API for Comments -------------------
+    GetCommentsByMovie:(movieId) => No_interceptors.get(`comments/movie/${movieId}`),
+    AddComment: (userId, data) => User_axios.post(`comments/add/${userId}`, data),
+    DeleteComment:(commentId) => User_axios.delete(`comments/delete/${commentId}`)
 }
 export default API;
