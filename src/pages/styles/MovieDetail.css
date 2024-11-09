@@ -43,6 +43,66 @@
     font-weight: 600;
 }
 
+/* Showtimes Section */
+.showtimes-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.showtimes-section h2 {
+    font-size: 24px;
+    color: #009688;
+    margin-bottom: 20px;
+}
+
+.date-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.date-selector button {
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #333;
+    font-weight: bold;
+}
+
+.date-selector button:hover {
+    background-color: #ddd;
+}
+
+.date-selector button[style*="background: red"] {
+    background-color: #0c4cee;
+    color: white;
+}
+
+.time-selector {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.showtime-button {
+    padding: 10px 20px;
+    background-color: #333;
+    border-radius: 8px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.showtime-button:hover {
+    background-color: #555;
+}
+
+/* Comments Section */
 .comments-section {
     margin-top: 40px;
     padding: 20px;
@@ -100,6 +160,7 @@
     border-color: #00796b;
     color: #fff;
 }
-.fw-bold{
+
+.fw-bold {
     font-weight: bold;
 }
