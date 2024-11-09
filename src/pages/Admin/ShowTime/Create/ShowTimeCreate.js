@@ -21,8 +21,8 @@ function ShowTimeCreate() {
     const [selectedMovie, setSelectedMovie] = useState({
         movieId:'',
         movieName:''
-    }); // Tên phim đã chọn
-    // Gọi API tìm kiếm
+    });
+
     const handleSearch = async () => {
         if (searchTerm) {
             try {
@@ -37,7 +37,7 @@ function ShowTimeCreate() {
         }
     };
 
-    // Hàm kiểm tra định dạng ngày
+
     const isValidDate = (day, month, year) => {
         const dayInt = parseInt(day, 10);
         const monthInt = parseInt(month, 10);
@@ -58,7 +58,7 @@ function ShowTimeCreate() {
         return true;
     };
 
-    // Hàm thêm ngày vào danh sách nếu hợp lệ và không trùng
+
     const handleAddDate = () => {
         if (!isValidDate(dayInput, monthInput, yearInput)) {
             setError("Ngày không hợp lệ. Vui lòng kiểm tra lại.");
@@ -79,14 +79,14 @@ function ShowTimeCreate() {
         }
     };
 
-    // Hàm kiểm tra định dạng giờ 24h
+
     const isValidTimeFormat = (hour, minute) => {
         const isValidHour = /^([01]?[0-9]|2[0-3])$/.test(hour);
         const isValidMinute = /^[0-5]?[0-9]$/.test(minute);
         return isValidHour && isValidMinute;
     };
 
-    // Hàm thêm giờ vào một ngày đã chọn
+
     const handleAddTime = (index) => {
         if (!isValidTimeFormat(hourInput, minuteInput)) {
             setError("Giờ hoặc phút không đúng định dạng.");
@@ -109,7 +109,7 @@ function ShowTimeCreate() {
         }
     };
 
-    // Hàm gọi API kiểm tra phòng trống
+
     const handleCheckRoomAvailability = async (dateIndex, timeIndex) => {
         const date = dates[dateIndex].date;
         const time = dates[dateIndex].times[timeIndex].time;
@@ -127,7 +127,7 @@ function ShowTimeCreate() {
         }
     };
 
-    // Hàm chọn phòng từ danh sách phòng khả dụng
+
     const handleSelectRoom = (room) => {
         const { dateIndex, timeIndex } = currentRoomSelection;
         const newDates = [...dates];
@@ -152,13 +152,12 @@ function ShowTimeCreate() {
         const now = new Date();
         const localDateTime = now.toLocaleString();
 
-        // Giả định `selectedMovie` đã được chọn và chứa `movieId`
         const formattedDate = dates.map((dateItem) => {
-            const formattedDate = dateItem.date.split("/").reverse().join("-"); // Định dạng thành YYYY-MM-DD
+            const formattedDate = dateItem.date.split("/").reverse().join("-");
             const times = dateItem.times.map((timeItem) => {
                 const dateTimeString = `${formattedDate}T${timeItem.time}`;
                 return {
-                    timeStart: dateTimeString, // Định dạng thành YYYY-MM-DDTHH:mm
+                    timeStart: dateTimeString,
                     roomId: timeItem.room ? timeItem.room.id : "Chưa chọn",
                 };
             });
@@ -166,16 +165,16 @@ function ShowTimeCreate() {
                 movieId: selectedMovie.movieId,
                 timeSheet: times,
             };
-        })[0]; // Lấy phần tử đầu tiên của mảng để chỉ lấy đối tượng
+        })[0];
 
-        // Log JSON dữ liệu đã định dạng để gửi lên backend
+
         try {
             const response = await fetch('http://localhost:8080/showtimes/admin/create', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', // Đảm bảo Content-Type là application/json
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formattedDate), // Chuyển đổi dữ liệu thành JSON
+                body: JSON.stringify(formattedDate),
             });
             const data = await response.json();
             console.log("Response:", data);
@@ -185,7 +184,7 @@ function ShowTimeCreate() {
         } catch (error) {
             console.error("Error:", error);
         }
-        // console.log(JSON.stringify(formattedDate,null,2));
+
     };
     const callApi =  async (data) => {
         try {
@@ -203,7 +202,7 @@ function ShowTimeCreate() {
             movieId: movieId,
             movieName: movieTitle
         }); // Lưu tên phim đã chọn
-        setShowSearchResults(false); // Ẩn bảng kết quả sau khi chọn
+        setShowSearchResults(false); 
     };
     return (
         <div style={{textAlign:'center'}}>
