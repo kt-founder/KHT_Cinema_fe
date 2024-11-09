@@ -25,6 +25,7 @@ const API = {
     UpdateMovie:(id, data) => No_interceptors.put(`movies/update/${id}`,data),
     CreatMovie:(data) => No_interceptors.post("movies/create",data),
     DisableMovie:(id) => No_interceptors.delete(`movies/delete/${id}`),
+    GetShowtimesByMovieId: (movieId) => No_interceptors.get(`showtimes/user/get-by-movieid?movieId=${movieId}`), // Thêm API lấy lịch chiếu
     // ---------- API for Comments -------------------
     GetCommentsByMovie:(movieId) => No_interceptors.get(`comments/movie/${movieId}`),
     AddComment: (userId, data) => User_axios.post(`comments/add/${userId}`, data),
