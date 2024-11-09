@@ -8,17 +8,17 @@ function ShowtimeTable() {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showtimes, setShowtimes] = useState([]); // Dữ liệu về suất chiếu
 
-    // Hàm gọi API lấy dữ liệu suất chiếu theo ngày
+
     const fetchShowtimes = async (date) => {
         try {
             const formattedDate = date.toLocaleDateString("en-CA"); // Định dạng thành YYYY-MM-DD
             const response = await fetch(`http://localhost:8080/showtimes/admin/get-all-showtime`);
             const data = await response.json();
             console.log(data.data)
-            setShowtimes(data.data); // Giả định dữ liệu trả về là mảng các suất chiếu
+            setShowtimes(data.data);
         } catch (error) {
             console.error("Lỗi khi lấy dữ liệu suất chiếu:", error);
-            setShowtimes([]); // Đặt lại state nếu có lỗi
+            setShowtimes([]);
         }
     };
     useEffect(() => {
