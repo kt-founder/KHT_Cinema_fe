@@ -29,6 +29,7 @@ const API = {
     // ---------- API for Comments -------------------
     GetCommentsByMovie:(movieId) => No_interceptors.get(`comments/movie/${movieId}`),
     AddComment: (userId, data) => User_axios.post(`comments/add/${userId}`, data),
+    ReplyToComment: (userId,parentCommentId, data) => User_axios.post(`comments/reply/${userId}/${parentCommentId}`, data),
     DeleteComment:(commentId) => User_axios.delete(`comments/delete/${commentId}`)
 }
 export default API;

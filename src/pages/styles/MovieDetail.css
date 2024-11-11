@@ -73,7 +73,15 @@
     color: #333;
     font-weight: bold;
 }
-
+.btnReply{
+    text-align: start;
+    background: none;
+    color: blue;
+    width: 4rem;
+}
+.btnReply:hover{
+    background: aliceblue;
+}
 .date-selector button:hover {
     background-color: #ddd;
 }
