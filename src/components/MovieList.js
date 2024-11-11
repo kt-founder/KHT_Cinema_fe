@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Card } from 'antd';
 import { useNavigate } from 'react-router-dom'; // Điều hướng
 import './StylesComponent/MovieList.css'; // CSS cho danh sách phim
-
+import { Rate} from "antd";
 const { Meta } = Card;
 
 const MovieList = () => {
@@ -37,6 +37,7 @@ const MovieList = () => {
                                 description={(
                                     <div>
                                         <p><strong>Thể loại:</strong> {movie.genre}</p>
+                                        <p><strong>Đánh giá:</strong><Rate value={movie.averageRating}/> </p>
                                         <p><strong>Thời lượng:</strong> {movie.duration}</p>
                                     </div>
                                 )}
