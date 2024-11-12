@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import s from './ShowTimeComponent.module.css';
 import {Spin} from "antd";
+import ShowTimeDateInput from "../../../components/ShowTimeDateInput";
 
 function ShowTimeComponent() {
     const [loading, setLoading] = useState(false);
@@ -63,10 +64,7 @@ function ShowTimeComponent() {
     const toggleDatePicker = () => {
         setShowDatePicker(!showDatePicker);
     };
-
-    const createShowTime = () => {
-        window.location.href = '/admin/create-show-time';
-    };
+    
     const showHistory = () => {
         window.location.href = '/admin/history-create-showtime';
     }
@@ -74,8 +72,9 @@ function ShowTimeComponent() {
         <div>
             <div className={s.top_buttons}>
                 <div className={s.btn_style} onClick={toggleDatePicker}>Lịch</div>
-                <div className={s.btn_style} onClick={createShowTime}>Thêm suất chiếu</div>
+                <ShowTimeDateInput />
                 <div className={s.btn_style} onClick={showHistory}>Xem lịch sử thêm</div>
+
             </div>
             <div className={s.date_display}>
                 {showDatePicker && (
@@ -110,7 +109,7 @@ function ShowTimeComponent() {
 
                     )))
                     :
-                    (<spanp>Không có lịch chiếu cho ngày này.</spanp>)
+                    (<span>Không có lịch chiếu cho ngày này.</span>)
                 }
             </div>
         </div>

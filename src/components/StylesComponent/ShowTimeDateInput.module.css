@@ -1,0 +1,88 @@
+.date_input_block {
+    text-align: center;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Inputs for day, month, year */
+.date_input {
+    padding: 8px;
+    width: 60px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+.dialog_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog {
+    text-align: center;
+    max-width: 1000px;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    padding: 60px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dialog_content {
+    margin-top: 20px;
+    /*display: flex;*/
+    gap: 60px;
+}
+.movie_actions {
+    justify-content: center;
+    display: flex;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.movie_actions_button {
+    text-decoration: none;
+    color: white;
+    background-color: #ffa500;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.movie_actions a:hover {
+    background-color: #e69500;
+}
+
+.close_button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.close_button:hover {
+    background-color: #c0392b;
+}
+.input_disable{
+    background-color: #f0f0f0; /* Màu nền cho input bị disabled */
+    color: #999; /* Màu chữ cho input bị disabled */
+    border-color: #ccc; /* Màu viền cho input bị disabled */
+    cursor: not-allowed;
+}
+

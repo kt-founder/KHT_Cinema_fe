@@ -13,9 +13,6 @@ const Header = () => {
                 <h1>Dashboard</h1>
             </div>
             <div className="header-right">
-                {/*<div className="notifications">*/}
-                {/*    <i className="fas fa-bell"></i>*/}
-                {/*</div>*/}
                 <div className="user-menu">
                     <img
                         src="https://via.placeholder.com/40"
@@ -23,7 +20,7 @@ const Header = () => {
                         className="user-avatar"
                         style={{visibility:'hidden'}}
                     />
-                    <span className="username" onClick={logout}>Đăng xuât <i style={{marginLeft:'10px'}} className="fa-solid fa-right-from-bracket"></i></span>
+                    <span className="username" onClick={logout} style={{cursor:'pointer'}}>Đăng xuât <i style={{marginLeft:'10px'}} className="fa-solid fa-right-from-bracket"></i></span>
                 </div>
             </div>
         </header>
