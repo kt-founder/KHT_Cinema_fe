@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import s from './ShowTimeComponent.module.css';
+import {Spin} from "antd";
 
 function ShowTimeComponent() {
+    const [loading, setLoading] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [sortedData, setSortedData] = useState({});
@@ -20,6 +22,7 @@ function ShowTimeComponent() {
             if (data && data.data) {
                 const sorted = sortShowtimes(data.data);
                 setSortedData(sorted);
+                setLoading(false);
             } else {
                 console.error("Dữ liệu không đúng định dạng:", data);
                 setSortedData({});
@@ -43,6 +46,7 @@ function ShowTimeComponent() {
     };
 
     useEffect(() => {
+        setLoading(true)
         const today = new Date();
         const localDate = today.toLocaleDateString("en-CA");
         fetchSchedule(localDate);
@@ -77,20 +81,32 @@ function ShowTimeComponent() {
                 {showDatePicker && (
                     <DatePicker selected={selectedDate} onChange={handleDateChange} inline/>
                 )}
-                <div><span style={{fontSize:'20px'}}>Lịch chiếu ngày: {selectedDate.toLocaleDateString()}</span></div>
+                <div><span style={{fontSize: '20px'}}>Lịch chiếu ngày: {selectedDate.toLocaleDateString()}</span></div>
             </div>
             <div className={s.movie_schedule}>
+                <div style={{marginTop: '20px'}}>
+                    {loading ? (
+                            <Spin tip="Loading..." size="large"/>
+                        ) :
+                        null
+                    }
+                </div>
                 {Object.keys(sortedData).length !== 0 ?
                     (Object.entries(sortedData).map(([movieTitle, showtimes]) => (
-                    <div key={movieTitle}>
-                        <h2 style={{color:'black'}}>{movieTitle}</h2>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '10px' }}>
-                            {showtimes.map((showtime, index) => (
-                                <div style={{border:'solid 2px #f123', padding:'8px 0 8px 0', margin:'8px', width:'125px'}} key={index}>{showtime}</div>
-                            ))}
+                        <div key={movieTitle}>
+                            <h2 style={{color: 'black'}}>{movieTitle}</h2>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '10px'}}>
+                                {showtimes.map((showtime, index) => (
+                                    <div style={{
+                                        border: 'solid 2px #f123',
+                                        padding: '8px 0 8px 0',
+                                        margin: '8px',
+                                        width: '125px'
+                                    }} key={index}>{showtime}</div>
+                                ))}
+                            </div>
+                            <hr/>
                         </div>
-                        <hr/>
-                    </div>
 
                     )))
                     :

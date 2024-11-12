@@ -1,34 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './ShowTimeHistory.css'; // Đảm bảo tạo file CSS tương ứng cho giao diện
+import './ShowTimeHistory.css';
+import {Spin} from "antd"; // Đảm bảo tạo file CSS tương ứng cho giao diện
 
 function ShowtimeTable() {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [showDatePicker, setShowDatePicker] = useState(false);
-    const [showtimes, setShowtimes] = useState([]); // Dữ liệu về suất chiếu
-
-
-    const fetchShowtimes = async (date) => {
+    const [loading, setLoading] = useState(false);
+    const [showtimes, setShowtimes] = useState([]);
+    const [page, setPage] = useState(0);
+    const [totalPage, setTotalPage] = useState(0);
+    const fetchShowtimes = async () => {
         try {
-            const formattedDate = date.toLocaleDateString("en-CA"); // Định dạng thành YYYY-MM-DD
-            const response = await fetch(`http://localhost:8080/showtimes/admin/get-all-showtime`);
+            const response = await fetch(`http://localhost:8080/showtimes/admin/get-all-showtime?page=${page}`);
             const data = await response.json();
             console.log(data.data)
-            setShowtimes(data.data);
+            setShowtimes(data.data.showtime);
+            setTotalPage(data.data.totalPages);
+            setLoading(false);
         } catch (error) {
             console.error("Lỗi khi lấy dữ liệu suất chiếu:", error);
             setShowtimes([]);
         }
     };
     useEffect(() => {
-        fetchShowtimes(selectedDate);
-    }, [selectedDate]);
+        setLoading(true)
+        fetchShowtimes();
+    }, [page]);
 
-
+    const choosePage = (pageNumber) => {
+        setPage(pageNumber)
+        console.log("click page: ", pageNumber)
+        // fetchShowtimes();
+    }
+    const Back = () => {
+        window.location.href = 'showtime'
+    }
     return (
         <div className="showtime-table-container">
-
+            <div style={{
+                padding: '8px', border: 'solid #d3c8c8 1px', width: '100px', cursor: 'pointer', background: '#dfd9d9'
+            }} onClick={Back}>Quay lại
+            </div>
             <table className="showtime-table">
                 <thead>
                 <tr>
@@ -44,7 +56,7 @@ function ShowtimeTable() {
                 {showtimes.length > 0 ? (
                     showtimes.map((showtime) => (
                         <tr key={showtime.id}>
-                            <td>{showtime.movie.title}</td>
+                            <td>{showtime.movie}</td>
                             <td>{new Date(showtime.startTime).toLocaleDateString('en-GB')
                             }
                             </td>
@@ -56,7 +68,7 @@ function ShowtimeTable() {
                                 hour: '2-digit',
                                 minute: '2-digit'
                             })}</td>
-                            <td>{showtime.cinemaHall.name}</td>
+                            <td>{showtime.nameRoom}</td>
                             <td>{new Date(showtime.dateCreate).toLocaleDateString('en-GB')
                             }
                             </td>
@@ -64,11 +76,32 @@ function ShowtimeTable() {
                     ))
                 ) : (
                     <tr>
-                        <td colSpan="4">Không có suất chiếu cho ngày này.</td>
+                        <td colSpan="4">Không có dữ liệu.</td>
                     </tr>
                 )}
                 </tbody>
             </table>
+            <div style={{marginTop: '20px'}}>
+                {loading ? (
+                        <Spin tip="Loading..." size="large"/>
+                    ) :
+                    null
+                }
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
+                {Array.from({length: totalPage}).map((_, index) => (
+                    <div style={{padding: '8px'}}>
+                        <div key={index} onClick={() => choosePage(index)}
+                             style={{
+                                 padding: '8px', border: 'solid black 1px',
+                                 cursor: 'pointer',
+                                 background: page === index ? '#89CFF0' : ''
+                             }}>
+                            {index + 1}
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
