@@ -17,6 +17,9 @@ import MovieDetail from "./pages/User/MovieDetail";
 import ShowTimeComponent from "./pages/Admin/ShowTime/ShowTimeComponent";
 import ShowTimeCreate from "./pages/Admin/ShowTime/Create/ShowTimeCreate";
 import ShowTimeHistory from "./pages/Admin/ShowTime/Read/ShowTimeHistory";
+import Checkout from "./pages/User/Checkout";
+import PaymentSuccess from "./pages/User/Payment-Success";
+import PaymentFailure from "./pages/User/Payment-failure";
 
 
 function AppRouter() {
@@ -30,7 +33,10 @@ function AppRouter() {
             <Route path="/verify" element={<VerifyOTP/>} />
             <Route path="/update-password" element={<UpdatePassword/>} />
             <Route path="/" element={<MovieList />} />
-            <Route path="/movies/:id" element={<MovieDetail />} /> {/* Route cho chi tiết phim */}
+            <Route path="/movies/:id" element={<MovieDetail />} />
+            <Route path="/check-out" element={<Checkout />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/payment-failure" element={<PaymentFailure />} />
             <Route  path="/admin" element={sessionStorage.getItem("HKT_ACCESS_TOKEN_ADMIN") != null ? <AdminLayout /> : <LoginAdmin/>}>
                 {/* Các route con của /admin */}
                 <Route path="dashboard" element={<Dashboard />} />
