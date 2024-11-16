@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./ShowTimeCreate.module.css";
 import axios from "axios";
+import {useLocation, useNavigate} from "react-router-dom";
 
 function ShowTimeCreate() {
     const [dates, setDates] = useState([]); // Danh sách ngày được chọn
@@ -23,6 +24,19 @@ function ShowTimeCreate() {
         movieName:''
     });
 
+    const location = useLocation();
+    const data = location.state;
+
+    useEffect(() => {
+        if (data) {
+            console.log("Data received:", data);
+            handleAddDate(data)
+        } else {
+            console.warn("Data is missing.");
+        }
+    }, [data]);
+
+
     const handleSearch = async () => {
         if (searchTerm) {
             try {
@@ -37,48 +51,12 @@ function ShowTimeCreate() {
         }
     };
 
-
-    const isValidDate = (day, month, year) => {
-        const dayInt = parseInt(day, 10);
-        const monthInt = parseInt(month, 10);
-        const yearInt = parseInt(year, 10);
-
-        if (dayInt < 1 || dayInt > 31 || monthInt < 1 || monthInt > 12 || yearInt < 1900) {
-            return false;
-        }
-        if ((monthInt === 4 || monthInt === 6 || monthInt === 9 || monthInt === 11) && dayInt > 30) {
-            return false;
-        }
-        if (monthInt === 2) {
-            const isLeapYear = (yearInt % 4 === 0 && yearInt % 100 !== 0) || yearInt % 400 === 0;
-            if ((isLeapYear && dayInt > 29) || (!isLeapYear && dayInt > 28)) {
-                return false;
-            }
-        }
-        return true;
+    const Back = () => {
+        window.location.href = '/admin/showtime'
+    }
+    const handleAddDate = (x) => {
+        setDates([...dates, { date: x, times: [] }]);
     };
-
-
-    const handleAddDate = () => {
-        if (!isValidDate(dayInput, monthInput, yearInput)) {
-            setError("Ngày không hợp lệ. Vui lòng kiểm tra lại.");
-            return;
-        }
-
-        const formattedDate = `${dayInput.padStart(2, "0")}/${monthInput.padStart(2, "0")}/${yearInput}`;
-        const isDuplicate = dates.some((d) => d.date === formattedDate);
-
-        if (isDuplicate) {
-            setError("Ngày này đã tồn tại trong danh sách");
-        } else {
-            setDates([...dates, { date: formattedDate, times: [] }]);
-            setDayInput("");
-            setMonthInput("");
-            setYearInput("");
-            setError("");
-        }
-    };
-
 
     const isValidTimeFormat = (hour, minute) => {
         const isValidHour = /^([01]?[0-9]|2[0-3])$/.test(hour);
@@ -137,11 +115,6 @@ function ShowTimeCreate() {
         setCurrentRoomSelection(null); // Đặt lại sau khi chọn phòng
     };
 
-    const handleDeleteDate = (index) => {
-        const newDates = [...dates];
-        newDates.splice(index, 1);
-        setDates(newDates);
-    };
 
     const handleDeleteTime = (dateIndex, timeIndex) => {
         const newDates = [...dates];
@@ -166,7 +139,7 @@ function ShowTimeCreate() {
                 timeSheet: times,
             };
         })[0];
-
+        console.log(formattedDate)
 
         try {
             const response = await fetch('http://localhost:8080/showtimes/admin/create', {
@@ -186,17 +159,7 @@ function ShowTimeCreate() {
         }
 
     };
-    const callApi =  async (data) => {
-        try {
-            const response = await axios.post(`http://localhost:8080/showtimes/admin/create`, data);
-            const rooms = response.data;
-            if (rooms.message){
-                window.location.href = 'admin/showtime'
-            }
-        } catch (error) {
-            console.error("Lỗi khi kiểm tra phòng trống:", error);
-        }
-    }
+
     const handleSelectMovie = (movieTitle, movieId) => {
         setSelectedMovie({
             movieId: movieId,
@@ -261,46 +224,11 @@ function ShowTimeCreate() {
             )}
             {1 && (
                 <div className={styles.app}>
-                    <div className={styles.date_input_block}>
-                        <input
-                            type="text"
-                            placeholder="Ngày"
-                            value={dayInput}
-                            onChange={(e) => setDayInput(e.target.value)}
-                            className={styles.date_input}
-                        />
-                        <input
-                            type="text"
-                            placeholder="Tháng"
-                            value={monthInput}
-                            onChange={(e) => setMonthInput(e.target.value)}
-                            className={styles.date_input}
-                        />
-                        <input
-                            type="text"
-                            placeholder="Năm"
-                            value={yearInput}
-                            onChange={(e) => setYearInput(e.target.value)}
-                            className={styles.date_input}
-                        />
-                        <div onClick={handleAddDate} className={styles.add_button}>
-                            Lưu ngày
-                        </div>
-                    </div>
-
-                    {error && <p className={styles.error_message}>{error}</p>}
-
                     <div className={styles.dates_list}>
                         {dates.map((item, dateIndex) => (
                             <div key={dateIndex} className={styles.date_block}>
                                 <div className={styles.date_header}>
-                                    <span>Ngày: {item.date}</span>
-                                    <div
-                                        onClick={() => handleDeleteDate(dateIndex)}
-                                        className={styles.delete_button}
-                                    >
-                                        Xóa ngày
-                                    </div>
+                                    <span>Ngày: {data}</span>
                                 </div>
 
                                 <div
@@ -398,7 +326,7 @@ function ShowTimeCreate() {
                 }}
             >
                 <div
-                    onClick={handleConfirmSave}
+                    onClick={Back}
                     className={styles.add_button}
                     style={{width: "100px", marginRight:'20px'}}
                 >
