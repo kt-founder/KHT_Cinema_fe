@@ -172,3 +172,171 @@
 .fw-bold {
     font-weight: bold;
 }
+
+/* Ghế mặc định */
+.seat {
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0; /* Màu xám nhạt */
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px; /* Đảm bảo nội dung nằm giữa theo chiều dọc */
+    color: #333; /* Màu chữ đậm hơn để dễ nhìn */
+    border: 2px solid #d9d9d9; /* Viền nhẹ */
+    cursor: pointer;
+    margin: 4px; /* Khoảng cách giữa các nút */
+    display: flex; /* Dùng flexbox để căn giữa */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+
+/* Ghế VIP */
+.seat.vip {
+    background-color: #ff0059; /* Màu vàng nổi bật */
+    color: #333;
+    border: 3px solid #ffa500;
+}
+
+/* Ghế Standard */
+.seat.standard {
+    background-color: #87ceeb; /* Màu xanh nhạt */
+    color: #333;
+    border: 2px solid #4682b4;
+}
+
+/* Ghế không khả dụng */
+.seat.unavailable {
+    background-color: #551717; /* Màu xám đậm hơn */
+    color: #888;
+    border: 4px solid #a9a9a9;
+    cursor: not-allowed;
+}
+
+/* Ghế đã chọn */
+.seat.selected {
+    background-color: #1aff00; /* Màu cam đậm */
+    color: #9e1d53;
+    border: 2px solid #cd3700;
+}
+
+/*
+ */
+.seat:hover::after {
+    content: attr(data-info);
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+/* Bố cục ghế */
+.seat-layout {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* 10 cột cố định */
+    gap: 10px; /* Khoảng cách giữa các ghế */
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #4b1451; /* Màu nền khung ghế */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Phần thông tin ghế */
+.seats-section .seat-info {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.seats-section .seat-info p {
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.seats-section .seat-info .total-price {
+    color: #e53935;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Legend Section */
+.legend {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #4b1451; /* Nền khung legend giống khung ghế */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.legend-item .box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* Colors matching seats */
+.legend-item .box.unavailable {
+    background-color: #551717; /* Màu ghế không khả dụng */
+    border: 1px solid #a9a9a9;
+}
+
+.legend-item .box.selected {
+    background-color: #1aff00; /* Màu ghế đã chọn */
+    border: 1px solid #cd3700;
+}
+
+.legend-item .box.standard {
+    background-color: #87ceeb; /* Màu ghế thường */
+    border: 1px solid #4682b4;
+}
+
+.legend-item .box.vip {
+    background-color: #ff0059; /* Màu ghế VIP */
+    border: 1px solid #ffa500;
+}
+
+/* Tooltip styling */
+.seat:hover::after {
+    content: attr(data-info); /* Hiển thị thông tin ghế */
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 100;
+}
+
