@@ -1,0 +1,99 @@
+.checkoutContainer {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 20px;
+    min-height: 100vh; /* Đảm bảo chiều cao tối thiểu */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.checkoutInfo {
+    text-align: center;
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkoutInfo h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.checkoutInfo p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.checkoutPayment {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.checkoutPayment h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.paymentMethods {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.paymentOption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.paymentOption img {
+    width: 100px;
+    height: 100px;
+}
+
+.paymentOption:hover {
+    border-color: #009688;
+}
+
+.paymentOption.selected {
+    border-color: #009688;
+}
+
+.checkoutButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #009688;
+    border-color: #009688;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkoutButton:hover {
+    background-color: #00796b;
+}
