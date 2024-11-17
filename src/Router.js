@@ -20,6 +20,7 @@ import ShowTimeHistory from "./pages/Admin/ShowTime/Read/ShowTimeHistory";
 import Checkout from "./pages/User/Checkout";
 import PaymentSuccess from "./pages/User/Payment-Success";
 import PaymentFailure from "./pages/User/Payment-failure";
+import BookingHistory from "./pages/User/HistoryBooking";
 
 
 function AppRouter() {
@@ -37,6 +38,7 @@ function AppRouter() {
             <Route path="/check-out" element={<Checkout />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-failure" element={<PaymentFailure />} />
+            <Route path="/history-booking" element={<BookingHistory />} />
             <Route  path="/admin" element={sessionStorage.getItem("HKT_ACCESS_TOKEN_ADMIN") != null ? <AdminLayout /> : <LoginAdmin/>}>
                 {/* Các route con của /admin */}
                 <Route path="dashboard" element={<Dashboard />} />

@@ -175,11 +175,11 @@
 
 /* Ghế mặc định */
 .seat {
-    width: 40px;
+    width: 60px;
     height: 40px;
     background-color: #f0f0f0; /* Màu xám nhạt */
     border-radius: 4px;
-    font-size: 14px;
+    /*font-size: 14px;*/
     font-weight: bold;
     text-align: center;
     line-height: 40px; /* Đảm bảo nội dung nằm giữa theo chiều dọc */
@@ -197,14 +197,14 @@
 .seat.vip {
     background-color: #ff0059; /* Màu vàng nổi bật */
     color: #333;
-    border: 3px solid #ffa500;
+    /*border: 3px solid #ffa500;*/
 }
 
 /* Ghế Standard */
 .seat.standard {
     background-color: #87ceeb; /* Màu xanh nhạt */
     color: #333;
-    border: 2px solid #4682b4;
+    /*border: 2px solid #4682b4;*/
 }
 
 /* Ghế không khả dụng */
