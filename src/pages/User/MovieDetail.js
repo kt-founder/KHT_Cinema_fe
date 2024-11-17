@@ -192,7 +192,12 @@ const MovieDetail = () => {
                         <h3>Seats for Showtime: {moment(selectedShowtime.startTime).format("HH:mm")} - {selectedShowtime.nameRoom}</h3>
                         <div className="seat-layout">
                             {seats.map((seat) => (
-                                <button1
+                                <div
+                                    style={{backgroundColor: seat.seatStatus === 'sold' ? '#551717' : ''
+                                        , pointerEvents:seat.seatStatus === 'sold' ? 'none' : 'auto',
+                                        color:seat.seatStatus === 'sold' ? 'white' : 'black'
+                                        ,cursor:seat.seatStatus === 'sold' ? 'not-allowed' : 'pointer',
+                                    userSelect:seat.seatStatus === 'sold' ? 'none' : ''}}
                                     key={seat.seatId}
                                     className={`seat ${
                                         selectedSeats.some((s) => s.seatId === seat.seatId)
@@ -201,10 +206,9 @@ const MovieDetail = () => {
                                     }`}
                                     data-info={`Ghế: ${seat.seatNumber}, Giá: ${seat.seatPrice}đ`}
                                     onClick={() => handleSeatClick(seat)}
-                                    disabled={seat.seatStatus === "unavailable"}
                                 >
                                     {seat.seatNumber}
-                                </button1>
+                                </div>
                             ))}
                         </div>
 

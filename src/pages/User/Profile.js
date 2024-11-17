@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from '../styles/UserProfile.module.css';
 import UserEDialog from "../../components/UserEDialog";
 import Api from "../../Confligs/Api";
+import {useNavigate} from "react-router-dom";
 
 const Profile = () => {
     const [user, setData] = useState({
@@ -26,6 +27,15 @@ const Profile = () => {
     const getBack = () => {
         window.location.href = '/'
     }
+
+    const navigate = useNavigate();
+    const getHistory = () => {
+        if (user) {
+            navigate('/history-booking', { state: user.id,replace:true });
+        } else {
+            console.error("Data is empty or undefined");
+        }
+    }
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
@@ -36,7 +46,7 @@ const Profile = () => {
                     <li className={styles.active}>Public profile</li>
                     <UserEDialog user = {user}/>
                     <li>Change password</li>
-                    <li>History booking</li>
+                    <li onClick={getHistory}>History booking</li>
                 </ul>
             </div>
 

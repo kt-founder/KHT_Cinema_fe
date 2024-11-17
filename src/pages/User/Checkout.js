@@ -46,9 +46,12 @@ const Checkout = () => {
                 window.location.href = result.data;
             } else {
                 console.error("Err1:", result.message);
+                alert("Vé bạn chọn đã được đặt !")
+                window.location.href = '/payment-failure'
             }
         } catch (error) {
             console.error("Err2:", error);
+            window.location.href = '/payment-failure'
         }
     };
 
