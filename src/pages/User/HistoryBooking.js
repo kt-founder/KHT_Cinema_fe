@@ -36,6 +36,7 @@ const BookingHistory = () => {
         }
     };
     return (
+
         <div className="movie-container">
             <div className="movie-header">
                 <div className="search-box">
