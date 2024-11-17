@@ -22,12 +22,16 @@ const BookingRDialog = (props) => {
 
     return (
         <div>
+            <button className="edit-button" style={{background: '#087373'}}>
+                <i className="fa-brands fa-readme" onClick={openDialog}></i>
+            </button>
             {open && (
                 <div className={styles.dialog_container}>
                     <div className={styles.dialog}>
                         <div className={styles.dialog_content}>
                             <div className={styles.movie_details} style={{textAlign: 'center'}}>
-                                <p style={{marginBottom: '50px', fontSize: '25px'}}><strong>Phim:</strong> {info.movie}</p>
+                                <p style={{marginBottom: '50px', fontSize: '25px'}}><strong>Phim:</strong> {info.movie}
+                                </p>
                                 <p style={{marginBottom: '50px', fontSize: '25px'}}><strong>Ngày
                                     chiếu:</strong> {info.date}</p>
                                 <p style={{marginBottom: '50px', fontSize: '25px'}}><strong>Giờ bắt đầu - Giờ kết
