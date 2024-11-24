@@ -21,6 +21,7 @@ import Checkout from "./pages/User/Checkout";
 import PaymentSuccess from "./pages/User/Payment-Success";
 import PaymentFailure from "./pages/User/Payment-failure";
 import BookingHistory from "./pages/User/HistoryBooking";
+import StatusTicket from "./pages/Admin/StatusTicketComponent";
 
 
 function AppRouter() {
@@ -42,6 +43,7 @@ function AppRouter() {
             <Route  path="/admin" element={sessionStorage.getItem("HKT_ACCESS_TOKEN_ADMIN") != null ? <AdminLayout /> : <LoginAdmin/>}>
                 {/* Các route con của /admin */}
                 <Route path="dashboard" element={<Dashboard />} />
+                <Route path="ticket" element={<StatusTicket/>} />
                 <Route path="movie" element={<MovieTable />} />
                 <Route path="cinema" element={<CinemaTable />} />
                 <Route path="manage-user" element={<UserTable/>}/>
