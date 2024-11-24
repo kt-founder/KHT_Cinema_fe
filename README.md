@@ -1,9 +1,9 @@
 # KHT_Cinema_System (FE)
 
 ## Thành viên
-1. Trần Quốc Khánh
-2. Lã Ngọc Hiếu
-3. Trương Thanh Tùng
+1. Trần Quốc Khánh - [Click for more](https://github.com/kt-founder)
+2. Lã Ngọc Hiếu - [Click for more](https://github.com/NgocHieuGithub)
+3. Trương Thanh Tùng - [Click for more](https://github.com/TruongThanhTung030502)
 
 ## Link 
 Back end: https://github.com/kt-founder/KHT_Cinema_be
