@@ -47,12 +47,19 @@ const StatusTicket = () => {
                         <td>{s.id}</td>
                         <td>{s.movie}</td>
                         <td>{s.room}</td>
-                        <td>{s.price}</td>
-                        <td style={{textAlign:'center'}}>
+                        <td>{new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }).format(s.price / 100)}</td>
+                        <td style={{textAlign: 'center'}}>
                             {s.status.toString() === 'true' ?
-                            <span style={{color:'green', border:'2px solid green', padding:'4px'}}>Đã thanh toán</span>
-                            :
-                            <span style={{color:'orange', border:'2px solid orange', padding:'4px'}}>Đang chờ thanh toán</span>
+                                <span style={{
+                                    color: 'green',
+                                    border: '2px solid green',
+                                    padding: '4px'
+                                }}>Đã thanh toán</span>
+                                :
+                                <span style={{color: 'orange', border: '2px solid orange', padding: '4px'}}>Đang chờ thanh toán</span>
                             }
                         </td>
                         <td>{s.status.toString() === 'true' ? s.time : null}</td>
