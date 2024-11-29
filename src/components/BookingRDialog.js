@@ -10,7 +10,8 @@ const BookingRDialog = (props) => {
         startTime: startTime.split("T")[1],
         endTime: endTime.split("T")[1],
         hall: hall,
-        seats: props.booking.seatIds.join(", ")
+        seats: props.booking.seatIds.join(", "),
+        fvb:props.booking.fvb || {}
     }
     const openDialog = () => {
         setOpen(true);
@@ -30,16 +31,22 @@ const BookingRDialog = (props) => {
                     <div className={styles.dialog}>
                         <div className={styles.dialog_content}>
                             <div className={styles.movie_details} style={{textAlign: 'center'}}>
-                                <p style={{marginBottom: '50px', fontSize: '25px'}}><strong>Phim:</strong> {info.movie}
+                                <p style={{marginBottom: '25px', fontSize: '25px'}}><strong>Phim:</strong> {info.movie}
                                 </p>
-                                <p style={{marginBottom: '50px', fontSize: '25px'}}><strong>Ngày
+                                <p style={{marginBottom: '25px', fontSize: '25px'}}><strong>Ngày
                                     chiếu:</strong> {info.date}</p>
-                                <p style={{marginBottom: '50px', fontSize: '25px'}}><strong>Giờ bắt đầu - Giờ kết
+                                <p style={{marginBottom: '25px', fontSize: '25px'}}><strong>Giờ bắt đầu - Giờ kết
                                     thúc:</strong> {info.startTime} - {info.endTime}</p>
-                                <p style={{marginBottom: '50px', fontSize: '25px'}}><strong>Phòng:</strong> {info.hall}
+                                <p style={{marginBottom: '25px', fontSize: '25px'}}><strong>Phòng:</strong> {info.hall}
                                 </p>
-                                <p style={{marginBottom: '50px', fontSize: '25px'}}><strong>Ghế đã
+                                <p style={{marginBottom: '25px', fontSize: '25px'}}><strong>Ghế đã
                                     đặt:</strong> {info.seats}</p>
+
+                                {info.fvb.length > 0 && <p style={{marginBottom: '25px', fontSize: '25px'}}><strong>Thêm:</strong> {info.fvb.map((f) => (
+                                    <div key={f.name} style={{marginBottom: '2px'}}>
+                                        {f.quantity} {f.name}
+                                    </div>
+                                ))}</p>}
                                 <div className={styles.movie_actions}>
                                     <a href="#" onClick={closeDialog}>Thoát</a>
                                 </div>

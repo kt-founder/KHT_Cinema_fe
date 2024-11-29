@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import styles from "./ShowTimeCreate.module.css";
 import axios from "axios";
 import {useLocation, useNavigate} from "react-router-dom";
+import LoadingComponent from "../../../../components/LoadingComponent";
 
 function ShowTimeCreate() {
     const [dates, setDates] = useState([]); // Danh sách ngày được chọn
@@ -23,7 +24,7 @@ function ShowTimeCreate() {
         movieId:'',
         movieName:''
     });
-
+    const [isLoading, setIsLoading] = useState(false);
     const location = useLocation();
     const data = location.state;
 
@@ -112,7 +113,7 @@ function ShowTimeCreate() {
         newDates[dateIndex].times[timeIndex].room = room;
         setDates(newDates);
         setAvailableRooms([]);
-        setCurrentRoomSelection(null); // Đặt lại sau khi chọn phòng
+        setCurrentRoomSelection(null);
     };
 
 
@@ -140,7 +141,7 @@ function ShowTimeCreate() {
             };
         })[0];
         console.log(formattedDate)
-
+        setIsLoading(true)
         try {
             const response = await fetch('http://localhost:8080/showtimes/admin/create', {
                 method: 'POST',
@@ -156,6 +157,8 @@ function ShowTimeCreate() {
             }
         } catch (error) {
             console.error("Error:", error);
+        } finally {
+            setIsLoading(false)
         }
 
     };
@@ -169,6 +172,7 @@ function ShowTimeCreate() {
     };
     return (
         <div style={{textAlign:'center'}}>
+            {isLoading && <LoadingComponent />}
             <div>
                 <div className={styles.search_container}>
                     <input

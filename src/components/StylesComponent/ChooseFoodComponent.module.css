@@ -1,0 +1,126 @@
+.dialog_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.dialog {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 80%;
+    width: 900px;
+    max-height: 90%; /* Tối đa 90% chiều cao màn hình */
+    overflow: hidden; /* Ẩn phần thừa */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column; /* Đặt flex để sắp xếp nội dung và nút */
+}
+
+.dialog_title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #087373;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.dialog_content {
+    flex: 1; /* Chiếm toàn bộ không gian còn lại */
+    overflow-y: auto; /* Thanh cuộn dọc */
+    padding-right: 10px; /* Đệm cho thanh cuộn */
+}
+
+.dialog_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+.primary_button {
+    background: #087373;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.primary_button:hover {
+    background: #065b57;
+}
+
+.secondary_button {
+    background: #f5f5f5;
+    color: #444;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.secondary_button:hover {
+    background: #ddd;
+}
+
+.image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background: #f5f5f5;
+    font-weight: bold;
+}
+.quantity_button {
+    background: #ff7e5f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.quantity_button:hover {
+    background: #ff6a4d;
+}
+
+.quantity_input {
+    margin-bottom: 0;
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.quantity_controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
