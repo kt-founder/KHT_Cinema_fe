@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import MovieCDialog from "../../components/MovieCDialog"; // File CSS được cập nhật bên dưới
-import Api from '../../Confligs/Api'
 import {notification, Spin} from "antd";
-import MovieRDialog from "../../components/MovieRDialog";
-import MovieEDialog from "../../components/MovieEDialog";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import BookingRDialog from "../../components/BookingRDialog";
+import LoadingComponent from "../../components/LoadingComponent";
 const BookingHistory = () => {
     const [booking, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const location = useLocation();
     const data = location.state;
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         setLoading(true)
         fetchSchedule(data)
@@ -26,22 +24,47 @@ const BookingHistory = () => {
             console.log("Response data:", result.data);
 
             if (result && result.data) {
-                setData(result.data)
+                const formattedData = result.data.map(item => {
+                    const date = new Date(item.dateBooking);
+                    const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')} ${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+                    return {
+                        ...item,
+                        dateBooking: formattedTime
+                    };
+                });
+                setData(formattedData)
                 setLoading(false)
             } else {
                 console.error("Err1:", result.message);
             }
         } catch (error) {
             console.error("Err2:", error);
+        } finally {
+            setIsLoading(false)
         }
     };
+    const navigate = useNavigate();
+
+    const handleBack = () => {
+        navigate(-1); // Quay lại trang trước
+    };
+    if (isLoading) {
+        return <LoadingComponent />;
+    }
     return (
 
         <div className="movie-container">
             <div className="movie-header">
-                <div className="search-box">
-                    <input type="text" placeholder="Search..."/>
-                    <i className="fas fa-search"></i>
+                <div onClick={handleBack} style={{
+                    padding: '8px',
+                    backgroundColor: 'orange',
+                    cursor: 'pointer',
+                    width: '10%',
+                    textAlign: 'center',
+                    marginTop: '20px'
+                }}>
+                    <i className="fa fa-arrow-left" aria-hidden="true"></i><span
+                    style={{marginLeft: '10px'}}>Back</span>
                 </div>
             </div>
             <table className="movie-table">
@@ -58,7 +81,12 @@ const BookingHistory = () => {
                     <tr key={b.id}>
                         <td>{b.id}</td>
                         <td>{b.dateBooking}</td>
-                        <td>{b.price}</td>
+                        <td>{new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                        })
+                            .format(b.price)
+                            .replace("₫", "VNĐ")}</td>
                         <td className="action-buttons">
                             <BookingRDialog booking = {b}/>
                         </td>

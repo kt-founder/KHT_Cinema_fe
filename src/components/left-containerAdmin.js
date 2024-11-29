@@ -40,7 +40,7 @@ const LeftContainer = () => {
                         </Link>
                         {/* Sub-menu items, chỉ hiển thị nếu isDashboardOpen là true */}
                         {isDashboardOpen && (
-                            <ul style={{marginLeft:'40px'}}>
+                            <ul style={{marginLeft: '40px'}}>
                                 <li>
                                     <Link to="/admin/manage-user"><i className="fas fa-user"></i>User</Link>
                                 </li>
@@ -69,6 +69,11 @@ const LeftContainer = () => {
                     <li>
                         <Link to="/admin/ticket">
                             <i className="fa fa-ticket" aria-hidden="true"></i> Ticket
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/admin/snack">
+                            <i className="fa fa-burger" aria-hidden="true"></i> Snack and Combo
                         </Link>
                     </li>
                 </ul>

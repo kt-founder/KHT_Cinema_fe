@@ -6,6 +6,7 @@ import "../styles/MovieDetail.css";
 import { Rate, Button, Input, notification } from "antd";
 import API from "../../Confligs/Api";
 import moment from "moment";
+import LoadingComponent from "../../components/LoadingComponent";
 
 const { TextArea } = Input;
 
@@ -23,12 +24,12 @@ const MovieDetail = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [newComment, setNewComment] = useState("");
     const [newRating, setNewRating] = useState(0);
-
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         API.GetMovieById(movieId)
             .then((response) => setMovie(response.data.data))
-            .catch((error) => console.error("Error fetching movie details:", error));
-
+            .catch((error) => console.error("Error fetching movie details:", error))
+            .finally(() => setIsLoading(false));
         fetchComments();
         fetchShowtimes();
     }, [movieId]);
@@ -43,27 +44,33 @@ const MovieDetail = () => {
         API.GetShowtimesByMovieId(movieId)
             .then((response) => {
                 const showtimesData = response.data.data || [];
-                const today = moment().startOf("day");
-                const filteredShowtimes = showtimesData.filter((showtime) =>
-                    moment(showtime.startTime).isSameOrAfter(today)
-                );
+                const now = moment(); // Thời điểm hiện tại
 
-                // Group showtimes by date
+                // Lọc các suất chiếu chưa bắt đầu và sắp xếp chúng theo thời gian
+                const filteredShowtimes = showtimesData
+                    .filter((showtime) => moment(showtime.startTime).isSameOrAfter(now))
+                    .sort((a, b) => moment(a.startTime).diff(moment(b.startTime))); // Sắp xếp theo thời gian
+
+                // Nhóm các suất chiếu theo ngày
                 const grouped = filteredShowtimes.reduce((acc, showtime) => {
                     const date = moment(showtime.startTime).format("YYYY-MM-DD");
                     if (!acc[date]) acc[date] = [];
                     acc[date].push(showtime);
                     return acc;
                 }, {});
-                setGroupedShowtimes(grouped);
-                setShowtimes(filteredShowtimes);
 
-                // Set the first available date as selected by default
+                setGroupedShowtimes(grouped); // Lưu vào state
+                setShowtimes(filteredShowtimes); // Lưu danh sách đã lọc và sắp xếp
+
+                // Chọn ngày đầu tiên trong danh sách làm ngày mặc định
                 const firstDate = Object.keys(grouped)[0];
                 setSelectedDate(firstDate);
             })
             .catch((error) => console.error("Error fetching showtimes:", error));
     };
+
+
+
 
     const fetchSeats = (showtimeId) => {
         API.GetSeatsByShowtime(showtimeId)
@@ -130,10 +137,9 @@ const MovieDetail = () => {
         }
     };
 
-    if (!movie) {
-        return <div>Loading movie details...</div>;
+    if (isLoading) {
+        return <LoadingComponent />;
     }
-
     return (
         <div>
             <Navbar />

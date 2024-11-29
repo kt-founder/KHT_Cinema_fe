@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './MovieTable.css';
 import {notification, Spin} from "antd";
+import LoadingComponent from "../../components/LoadingComponent";
 const StatusTicket = () => {
     const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const fetchData = async () => {
         try {
             const response = await fetch('http://localhost:8080/tickets/get-status-ticket');
@@ -21,11 +23,17 @@ const StatusTicket = () => {
             setStatus(formattedData);
         } catch (error) {
             console.error('Error fetching data:', error);
+        } finally {
+            setIsLoading(false)
         }
     };
     useEffect(() => {
         fetchData();
     }, []);
+
+    if (isLoading) {
+        return <LoadingComponent />;
+    }
     return (
         <div className="movie-container">
             <div className="movie-header">
@@ -47,10 +55,12 @@ const StatusTicket = () => {
                         <td>{s.id}</td>
                         <td>{s.movie}</td>
                         <td>{s.room}</td>
-                        <td>{new Intl.NumberFormat('vi-VN', {
-                            style: 'currency',
-                            currency: 'VND'
-                        }).format(s.price / 100)}</td>
+                        <td>{new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                        })
+                            .format(s.price)
+                            .replace("₫", "VNĐ")}</td>
                         <td style={{textAlign: 'center'}}>
                             {s.status.toString() === 'true' ?
                                 <span style={{
