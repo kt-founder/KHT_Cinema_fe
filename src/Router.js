@@ -2,6 +2,11 @@ import {Route, Routes} from "react-router-dom";
 import Home from "./pages/User/Home";
 import Login from "./pages/User/Login";
 import SignUp from "./pages/User/SignUp";
+import News from "./pages/User/News";
+import Promos from "./pages/User/Promo";
+import Price from "./pages/User/Price";
+import Festival from "./pages/User/Festival";
+import About from "./pages/User/About";
 import Dashboard from "./pages/Admin/Dashboard";
 import AdminLayout from "./pages/Admin/HomeAdmin";
 import LoginAdmin from "./pages/Admin/LoginAdmin";
@@ -32,6 +37,11 @@ function AppRouter() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/myInfor" element={<UserProfile/>}/>
+            <Route path="/news" element={<News/>}/>
+            <Route path="/promo" element={<Promos/>}/>
+            <Route path="/price" element={<Price/>}/>
+            <Route path="/festival" element={<Festival/>}/>
+            <Route path="/about" element={<About/>}/>
             <Route path="/forgot-password" element={<ForgotPassword/>} />
             <Route path="/verify" element={<VerifyOTP/>} />
             <Route path="/update-password" element={<UpdatePassword/>} />
