@@ -5,7 +5,7 @@ const LoadingComponent = () => {
     return (
         <div className={styles.loading_overlay}>
             <div className={styles.loading_spinner}></div>
-            <p style={{marginLeft:'20px'}}>Đang xử lý, vui lòng chờ...</p>
+            <p style={{marginLeft:'20px', fontSize:'20px'}}>Đang xử lý, vui lòng chờ ...</p>
         </div>
     );
 };
