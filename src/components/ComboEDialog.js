@@ -7,7 +7,7 @@ const ComboEDialog = ({ combo }) => {
         id: combo.id || "",
         name: combo.name || "",
         img: combo.img || "",
-        price: combo.price || "",
+        price: combo.price.toString() || "",
         snacks: combo.infoCombo.map((snack) => ({
             id: snack.idSnack,
             name: snack.nameSnack,
