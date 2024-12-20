@@ -19,3 +19,24 @@
     margin: 0;
     color: #555; /* Đổi màu chữ nếu cần */
 }
+.carousel-item {
+    padding: 0 10px; /* Khoảng cách giữa các phim */
+}
+
+.custom-carousel .slick-arrow {
+    font-size: 24px; /* Tăng kích thước mũi tên */
+    color: #333; /* Màu mũi tên */
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng mờ */
+    border-radius: 50%; /* Bo tròn mũi tên */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-carousel .slick-arrow:hover {
+    background-color: #000; /* Nền đen khi hover */
+    color: #fff; /* Chữ trắng khi hover */
+}
