@@ -6,11 +6,11 @@ import { Layout } from 'antd';
 import '../styles/global.css';
 import Navbar from "../../components/Navbar";
 import MovieList from "../../components/MovieList";
+
 import CarouselSection from "../../components/CarouselSection";
 
 
 const { Header, Content} = Layout;
-
 const Home = () => {
     return (
         <Layout className="full-width" style={{ backgroundColor: '#111' }}>
@@ -21,9 +21,9 @@ const Home = () => {
                 <Content className="full-container" style={{ margin: '0', backgroundColor: '#000' }}>
                     <div className="full-row">
 
-                       <CarouselSection/>
+                        <CarouselSection/>
                         <MovieList />
-                        
+
                     </div>
                 </Content>
             </Layout>
