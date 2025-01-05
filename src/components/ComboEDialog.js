@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./StylesComponent/ComboCDialog.module.css";
 
 const ComboEDialog = ({ combo }) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [comboData, setComboData] = useState({
         id: combo.id || "",
         name: combo.name || "",

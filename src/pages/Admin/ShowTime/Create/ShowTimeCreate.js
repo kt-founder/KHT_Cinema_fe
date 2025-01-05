@@ -22,7 +22,8 @@ function ShowTimeCreate() {
     const [showSearchResults, setShowSearchResults] = useState(false); // Hiển thị kết quả tìm kiếm
     const [selectedMovie, setSelectedMovie] = useState({
         movieId:'',
-        movieName:''
+        movieName:'',
+        duration:''
     });
     const [isLoading, setIsLoading] = useState(false);
     const location = useLocation();
@@ -40,12 +41,14 @@ function ShowTimeCreate() {
 
     const handleSearch = async () => {
         if (searchTerm) {
+            setIsLoading(true)
             try {
                 const response = await fetch(`http://localhost:8080/movies/search-movie?keyword=${searchTerm}`);
                 const data = await response.json();
                 console.log(data)
                 setSearchResults(data.data);
                 setShowSearchResults(true);
+                setIsLoading(false)
             } catch (error) {
                 console.error("Lỗi khi tìm kiếm:", error);
             }
@@ -71,8 +74,23 @@ function ShowTimeCreate() {
             setError("Giờ hoặc phút không đúng định dạng.");
             return;
         }
-
+        const today = new Date();
+        const selectedDate = dates[index].date.split("/");
+        const selectedDay = parseInt(selectedDate[0]);
+        const selectedMonth = parseInt(selectedDate[1]) - 1;
+        const selectedYear = parseInt(selectedDate[2]);
         const formattedTime = `${hourInput.padStart(2, "0")}:${minuteInput.padStart(2, "0")}`;
+        const newTime = new Date(selectedYear, selectedMonth, selectedDay, parseInt(hourInput), parseInt(minuteInput));
+        const minimumAllowedTime = new Date(today.getTime() + 2 * 60 * 60 * 1000);
+        if (
+            selectedDay === today.getDate() &&
+            selectedMonth === today.getMonth() &&
+            selectedYear === today.getFullYear() &&
+            newTime <= minimumAllowedTime
+        ) {
+            setError("Giờ chiếu phải muộn hơn giờ hiện tại ít nhất 2 tiếng.");
+            return;
+        }
         const newDates = [...dates];
         const isDuplicate = newDates[index].times.some((t) => t.time === formattedTime);
 
@@ -88,23 +106,44 @@ function ShowTimeCreate() {
         }
     };
 
-
     const handleCheckRoomAvailability = async (dateIndex, timeIndex) => {
-        const date = dates[dateIndex].date;
+        if (selectedMovie.duration === ''){
+            setError("Vui lòng chọn phim muốn tạo suất chiếu")
+            return
+        }
+        setIsLoading(true)
+        const date = dates[dateIndex].date; // Ngày chiếu
         const time = dates[dateIndex].times[timeIndex].time;
-        const formattedDate = date.split('/').reverse().join('-'); // Chuyển thành dạng YYYY-MM-DD
+        const formattedDate = date.split('/').reverse().join('-');
         const dateTime = `${formattedDate}T${time}`;
-        console.log(dateTime)
+        const movieDuration = selectedMovie.duration.split(" ")[0];
+
         try {
             const response = await fetch(`http://localhost:8080/cinema-halls/check-avaiable-room?time=${encodeURIComponent(dateTime)}`);
             const rooms = await response.json();
-            setAvailableRooms(rooms.data);
-            console.log(availableRooms)
+
+            const filteredRooms = rooms.data.filter(room => {
+                return !dates[dateIndex].times.some(existingTime => {
+                    if (!existingTime.room) return false; // Nếu suất chiếu chưa chọn phòng, bỏ qua
+                    const existingTimeInMinutes = parseInt(existingTime.time.split(":")[0]) * 60 + parseInt(existingTime.time.split(":")[1]); // Thời gian phút của suất chiếu cũ
+                    const currentTimeInMinutes = parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]); // Thời gian phút của suất chiếu mới
+                    const timeDifference = Math.abs(currentTimeInMinutes - existingTimeInMinutes); // Khoảng cách thời gian giữa 2 suất chiếu
+
+                    return (
+                        room.id === existingTime.room.id &&
+                        timeDifference < movieDuration
+                    );
+                });
+            });
+
+            setAvailableRooms(filteredRooms);
             setCurrentRoomSelection({ dateIndex, timeIndex });
+            setIsLoading(false)
         } catch (error) {
             console.error("Lỗi khi kiểm tra phòng trống:", error);
         }
     };
+
 
 
     const handleSelectRoom = (room) => {
@@ -122,9 +161,12 @@ function ShowTimeCreate() {
         newDates[dateIndex].times.splice(timeIndex, 1);
         setDates(newDates);
     };
+
     const handleConfirmSave = async () => {
-        const now = new Date();
-        const localDateTime = now.toLocaleString();
+        if (!selectedMovie.movieId || dates.length === 0 || dates.some(dateItem => dateItem.times.length === 0)) {
+            setError("Vui lòng nhập đầy đủ thông tin phim, ngày và giờ chiếu trước khi lưu.");
+            return;
+        }
 
         const formattedDate = dates.map((dateItem) => {
             const formattedDate = dateItem.date.split("/").reverse().join("-");
@@ -140,8 +182,8 @@ function ShowTimeCreate() {
                 timeSheet: times,
             };
         })[0];
-        console.log(formattedDate)
-        setIsLoading(true)
+
+        setIsLoading(true);
         try {
             const response = await fetch('http://localhost:8080/showtimes/admin/create', {
                 method: 'POST',
@@ -152,23 +194,22 @@ function ShowTimeCreate() {
             });
             const data = await response.json();
             console.log("Response:", data);
-            if (data.message){
-                window.location.href = 'showtime'
+            if (data.message) {
+                window.location.href = 'showtime';
             }
         } catch (error) {
             console.error("Error:", error);
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
-
     };
-
-    const handleSelectMovie = (movieTitle, movieId) => {
+    const handleSelectMovie = (movieTitle, movieId, duration) => {
         setSelectedMovie({
             movieId: movieId,
-            movieName: movieTitle
-        }); // Lưu tên phim đã chọn
-        setShowSearchResults(false); 
+            movieName: movieTitle,
+            duration: duration,
+        });
+        setShowSearchResults(false);
     };
     return (
         <div style={{textAlign:'center'}}>
@@ -208,7 +249,7 @@ function ShowTimeCreate() {
                                 <td>
                                     <div
                                         className={styles.add_button}
-                                        onClick={() => handleSelectMovie(result.title, result.id)}
+                                        onClick={() => handleSelectMovie(result.title, result.id, result.duration)}
                                     >
                                         Chọn
                                     </div>
@@ -310,7 +351,7 @@ function ShowTimeCreate() {
                                                     onClick={() => handleSelectRoom(room)}
                                                     className={styles.room_button}
                                                 >
-                                                    {room.name} - {room.capacity} chỗ
+                                                    {room.name}
                                                 </div>
                                             ))}
                                         </div>
@@ -321,6 +362,7 @@ function ShowTimeCreate() {
 
                 </div>
             )}
+            {error && <div className={styles.error_message} style={{marginBottom:'20px'}}>{error}</div>}
             <div
                 style={{
                     display: "flex",

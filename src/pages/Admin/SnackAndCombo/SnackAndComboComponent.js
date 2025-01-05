@@ -4,11 +4,12 @@ import SnackCDialog from "../../../components/SnackCDialog";
 import SnackEDialog from "../../../components/SnackEDialog";
 import ComboCDialog from "../../../components/ComboCDialog";
 import ComboEDialog from "../../../components/ComboEDialog";
+import LoadingComponent from "../../../components/LoadingComponent";
 const SnackAndComboComponent = () => {
     const [snacks, setSnacks] = useState(null);
     const [combo, setCombo] = useState(null);
     const [loading, setLoading] = useState(false);
-
+    const [isLoading, setIsLoading] = useState(false);
     const fetchDataSnacks = async () => {
         try {
             const response = await fetch('http://localhost:8080/snacks/get-snacks');
@@ -40,6 +41,7 @@ const SnackAndComboComponent = () => {
 
     const disableSnack = async (id) => {
         try {
+            setIsLoading(true)
             const response = await fetch(`http://localhost:8080/snacks/delete-snacks?snackId=${id}`,{
                 method:'DELETE'
             });
@@ -48,6 +50,7 @@ const SnackAndComboComponent = () => {
                 notification["success"]({
                     message: "Change status snack successful",
                 });
+                setIsLoading(false)
                 window.location.reload()
             }
         } catch (error) {
@@ -60,6 +63,7 @@ const SnackAndComboComponent = () => {
 
     const disableCombo = async (id) => {
         try {
+            setIsLoading(true)
             const response = await fetch(`http://localhost:8080/combo/delete-combo?comboId=${id}`,{
                 method:'DELETE'
             });
@@ -68,6 +72,7 @@ const SnackAndComboComponent = () => {
                 notification["success"]({
                     message: "Change status combo successful",
                 });
+                setIsLoading(false)
                 window.location.reload()
             }
         } catch (error) {
@@ -79,6 +84,7 @@ const SnackAndComboComponent = () => {
     }
     return (
         <div className="movie-container">
+            {isLoading && <LoadingComponent />}
             <div className="movie-header">
                 <h1>I. Snacks</h1>
                 {/*<div style={{padding:'8px', border:'1px green solid', cursor:'pointer'}}>Thêm Snack</div>*/}
@@ -115,7 +121,7 @@ const SnackAndComboComponent = () => {
                                     color: 'orange',
                                     border: '2px solid orange',
                                     padding: '4px'
-                                }}>UnAvailable</span>
+                                }}>Not Available</span>
                             }
                         </td>
                         <td>
@@ -183,7 +189,7 @@ const SnackAndComboComponent = () => {
                                     color: 'orange',
                                     border: '2px solid orange',
                                     padding: '4px'
-                                }}>UnAvailable</span>
+                                }}>Not Available</span>
                             }
                         </td>
                         <td>

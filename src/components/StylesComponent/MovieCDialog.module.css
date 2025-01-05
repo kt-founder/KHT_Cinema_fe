@@ -12,9 +12,9 @@
 }
 
 .dialog {
-    /*width: 60%;*/
+    width: 60%;
     max-width: 900px;
-    background-color: #333;
+    background-color: #354761;
     color: white;
     border-radius: 10px;
     padding: 60px;
@@ -97,4 +97,10 @@ textarea {
 
 .close_button:hover {
     background-color: #c0392b;
+}
+.error_message {
+    text-align: center;
+    color: #ff0202;
+    font-size: 17px;
+    margin-top: 10px;
 }

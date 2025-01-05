@@ -22,10 +22,10 @@ const MovieDialog = (props) => {
             {open && (
                 <div className={styles.dialog_container}>
                     <div className={styles.dialog}>
-                        <div className={styles.dialog_content}>
+                        <div className={styles.movie_details}>
                             <div>
                                 <img
-                                   src =  {props.movie.image != null ?  "https://via.placeholder.com/200x300" : null}
+                                   src =  {props.movie.image != null ?  props.movie.image : null}
                                     alt="Movie Poster"
                                     className={styles.movie_poster}
                                 />

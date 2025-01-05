@@ -64,6 +64,13 @@ const SnackEDialog = (props) => {
     };
 
     const closeDialog = () => {
+        setSnackData({
+            id: props.snack.id,
+            name: props.snack.name,
+            price: props.snack.price,
+            img: props.snack.img,
+            active: props.snack.active,
+        })
         setOpen(false);
     };
     return (

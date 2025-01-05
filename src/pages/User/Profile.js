@@ -45,7 +45,7 @@ const Profile = () => {
                 <ul className={styles.sidebarMenu}>
                     <li className={styles.active}>Public profile</li>
                     <UserEDialog user = {user}/>
-                    <li>Change password</li>
+                    {/*<li>Change password</li>*/}
                     <li onClick={getHistory}>History booking</li>
                 </ul>
             </div>

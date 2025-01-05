@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./StylesComponent/ComboCDialog.module.css";
 
 const ComboCDialog = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [snacks, setSnacks] = useState([]);
     const [selectedSnacks, setSelectedSnacks] = useState([]);
@@ -17,7 +18,7 @@ const ComboCDialog = () => {
         setComboData({
             name: "",
             price: "",
-            img:""
+            img:"https://salt.tikicdn.com/cache/750x750/ts/product/65/56/40/917357f489e95a095c5657532b484aa2.jpg.webp"
         })
         setErrorMessage("")
         setSelectedSnacks([])
@@ -83,17 +84,17 @@ const ComboCDialog = () => {
                 snacks: selectedSnacks.map(({ id, quantity }) => ({ id, quantity })),
             };
             console.log(dataSend)
-            const response = await fetch(`http://localhost:8080/combo/create-combo`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dataSend),
-            });
-            const result = await response.json();
-            if (result.message === "Successful") {
-                alert("Combo đã được lưu thành công!");
-                closeDialog()
-                window.location.reload();
-            }
+            // const response = await fetch(`http://localhost:8080/combo/create-combo`, {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(dataSend),
+            // });
+            // const result = await response.json();
+            // if (result.message === "Successful") {
+            //     alert("Combo đã được lưu thành công!");
+            //     closeDialog()
+            //     window.location.reload();
+            // }
         } catch (error) {
             console.error("Lỗi khi lưu combo:", error);
             alert("Không thể lưu combo, vui lòng thử lại!");
