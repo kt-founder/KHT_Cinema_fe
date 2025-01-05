@@ -1,11 +1,24 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
+import axios from "axios";
+
+const fetchProducts = async () => {
+    try {
+        const response = await axios.get('http://160.30.172.17:8080/products');
+        console.log('Data:', response.data); // Hiển thị dữ liệu từ API
+    } catch (error) {
+        console.error('Error fetching products:', error.message);
+    }
+};
+
 
 const About = () => {
+    fetchProducts();
     return (
         <div style={styles.aboutPage}>
             {/* Navbar */}
             <Navbar />
+
 
             {/* Header */}
             <h1 style={styles.header}>Giới thiệu về KHTCinema</h1>
