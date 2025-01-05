@@ -13,10 +13,10 @@
 }
 
 .dialog {
-    /*width: 60%;*/
+    width: 60%;
     /*width: 900px;*/
     max-width: 900px;
-    background-color: #333;
+    background-color: #354761;
     color: white;
     border-radius: 10px;
     padding: 60px;
@@ -27,7 +27,7 @@
 .dialog img {
     max-width: 100%;
     /*height: auto;*/
-    height: 300px;
+    /*height: 300px;*/
     border-radius: 10px;
     margin-right: 20px;
 }

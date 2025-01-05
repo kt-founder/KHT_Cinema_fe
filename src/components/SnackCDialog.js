@@ -49,6 +49,7 @@ const SnackCDialog = () => {
             ...snackData,
             price: Number(snackData.price),
         };
+        console.log(requestData)
         try {
             const response = await fetch(`http://localhost:8080/snacks/create-snacks`, {
                 method: 'POST',

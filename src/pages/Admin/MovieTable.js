@@ -39,7 +39,7 @@ const MovieTable = () => {
         <div className="movie-container">
             <div className="movie-header">
                 {/*<h1>Movie</h1>*/}
-                <div className="search-box">
+                <div className="search-box" style={{visibility:'hidden'}}>
                     <input type="text" placeholder="Search..."/>
                     <i className="fas fa-search"></i>
                 </div>
@@ -54,7 +54,7 @@ const MovieTable = () => {
                     <th>Name</th>
                     <th>Release Date</th>
                     <th>Director</th>
-                    <th>isActive</th>
+                    <th>Status</th>
                     <th style={{textAlign: 'center'}}>Action</th>
                 </tr>
                 </thead>
@@ -65,10 +65,21 @@ const MovieTable = () => {
                         <td>{movie.title}</td>
                         <td>{movie.releaseDate}</td>
                         <td>{movie.director}</td>
-                        <td>{movie.active.toString()}</td>
+                        <td>
+                            {movie.active ?
+                                <span
+                                    style={{color: 'green', border: '2px solid green', padding: '4px'}}>ON</span>
+                                :
+                                <span style={{
+                                    color: 'orange',
+                                    border: '2px solid orange',
+                                    padding: '4px'
+                                }}>OFF</span>
+                            }
+                        </td>
                         <td className="action-buttons">
-                            <MovieRDialog movie = {movie}/>
-                            <MovieEDialog movie = {movie}/>
+                            <MovieRDialog movie={movie}/>
+                            <MovieEDialog movie={movie}/>
                             <button className="delete-button">
                                 {movie.active ?
                                     <i className="fa-solid fa-lock" onClick={() => disable(movie.id)}></i>

@@ -49,7 +49,7 @@ function ForgotPassword() {
                     <div className="input-group">
                         <label>Email đăng ký *</label>
                         <input
-                            type="password"
+                            type="text"
                             placeholder="Nhập email đăng ký của ban"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}

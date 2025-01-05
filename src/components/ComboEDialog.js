@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import styles from "./StylesComponent/ComboCDialog.module.css";
 
 const ComboEDialog = ({ combo }) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [comboData, setComboData] = useState({
         id: combo.id || "",
         name: combo.name || "",
         img: combo.img || "",
-        price: combo.price || "",
+        price: combo.price.toString() || "",
         snacks: combo.infoCombo.map((snack) => ({
             id: snack.idSnack,
             name: snack.nameSnack,

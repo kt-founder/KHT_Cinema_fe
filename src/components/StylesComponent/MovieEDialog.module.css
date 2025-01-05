@@ -14,7 +14,7 @@
 .dialog {
     /*width: 60%;*/
     width: 900px;
-    background-color: #333;
+    background-color: #354761;
     color: white;
     border-radius: 10px;
     padding: 60px;
@@ -28,14 +28,17 @@
 }
 
 .movie_poster {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     border-radius: 10px;
     object-fit: cover;
 }
 
 .movie_details {
-    flex-grow: 1;
+    flex: 1; /* Đảm bảo mỗi cột chiếm kích thước bằng nhau */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Khoảng cách giữa các thành phần trong cột */
 }
 
 .movie_title {
@@ -59,6 +62,7 @@ textarea {
     border: none;
     margin-bottom: 10px;
     font-size: 1em;
+    font-family: "Helvetica Neue", helvetica, arial, sans-serif;
 }
 
 input[type="date"] {
