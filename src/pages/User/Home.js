@@ -21,7 +21,7 @@ const Home = () => {
                 <Content className="full-container" style={{ margin: '0', backgroundColor: '#000' }}>
                     <div className="full-row">
 
-                       <CarouselSection/>
+                        <CarouselSection/>
                         <MovieList />
 
                     </div>
