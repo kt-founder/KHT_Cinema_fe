@@ -1,20 +1,74 @@
 /* src/StylesComponent/Navbar.css */
+
+/* Phần navbar */
 .navbar {
-    position: fixed;   /* Cố định vị trí navbar */
-    top: 0;            /* Căn chỉnh navbar ở đầu trang */
+    position: fixed;    /* Cố định navbar ở đầu trang */
+    top: 0;             /* Đặt sát mép trên */
     left: 0;
-    width: 100%;       /* Đảm bảo navbar bao phủ toàn bộ chiều ngang */
-
-    z-index: 1000;     /* Đảm bảo navbar luôn nằm trên các thành phần khác */
-    background-color: #0000FF;  /* Màu nền cho navbar */
-    padding: 10px 5px;
+    width: 100%;        /* Chiều ngang full màn hình */
+    z-index: 1000;      /* Đảm bảo navbar luôn nằm trên các thành phần khác */
+    background-color: #002366; /* Màu nền xanh dương */
+    display: flex;      /* Sử dụng flexbox để căn chỉnh các phần tử */
+    align-items: center;/* Căn giữa theo chiều dọc */
+    padding: 10px 20px; /* Khoảng cách bên trong cho navbar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
 }
 
+/* Logo */
+.logo {
+    height: 80px; /* Chiều cao tối ưu của logo */
+    width: auto; /* Giữ tỷ lệ khung hình */
+    /*position: absolute;*/
+    /*padding: 5px; !* Khoảng cách bên trong để logo không chạm cạnh *!*/
+    background-color: #FFFFFF; /* Nền trắng làm nổi bật logo */
+    border-radius: 8px; /* Bo tròn góc logo */
+    margin-bottom: 0;
+    margin-left: 20px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng mềm mại */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng hover */
+    cursor: pointer; /* Thêm biểu tượng tay khi hover */
+}
+
+/* Hiệu ứng khi hover logo */
+.logo:hover {
+    transform: scale(1.1); /* Phóng to logo nhẹ khi hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Tăng độ bóng */
+}
+
+/* Logo trong navbar */
 .navbar img {
-    height: 30px;
-    margin-right: 300px;
+    height: 40px;       /* Tăng chiều cao logo */
+    margin-right: 300px; /* Đẩy logo sang trái và các phần tử khác sang phải */
+    transition: transform 0.3s ease; /* Thêm hiệu ứng phóng to khi hover */
 }
 
+/* Hiệu ứng hover cho logo */
+.navbar img:hover {
+    transform: scale(1.1); /* Phóng to nhẹ khi hover */
+}
+.navbar-extend {
+    display: none; /* Ẩn phần mở rộng mặc định */
+    position: fixed;
+    top: 60px; /* Đặt ngay dưới navbar */
+    left: 0;
+    width: 100%;
+    background-color: #002366; /* Cùng màu với navbar */
+    color: #FFFFFF; /* Màu font đồng nhất */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+.navbar-extend a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #FFFFFF;
+    transition: background-color 0.3s;
+}
+
+/* Phần nội dung bên dưới navbar */
 .content {
-    /*margin-top: 200px;  !* Tạo khoảng cách với phần nội dung bên dưới navbar *!*/
+    margin-top: 60px; /* Tạo khoảng cách với navbar để tránh che khuất nội dung */
+    padding: 20px;    /* Khoảng cách nội dung */
 }

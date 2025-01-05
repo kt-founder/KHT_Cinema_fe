@@ -3,10 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import "../../components/StylesComponent/Navbar.css";
 import "../styles/MovieDetail.css";
-import { Rate, Button, Input, notification } from "antd";
+import { Rate, Button, Input, notification, Modal } from "antd";
 import API from "../../Confligs/Api";
 import moment from "moment";
 import LoadingComponent from "../../components/LoadingComponent";
+
 
 const { TextArea } = Input;
 
@@ -25,6 +26,9 @@ const MovieDetail = () => {
     const [newComment, setNewComment] = useState("");
     const [newRating, setNewRating] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [replyCommentId, setReplyCommentId] = useState(null);
+    const [replyContent, setReplyContent] = useState("");
+    const [isReplyModalVisible, setIsReplyModalVisible] = useState(false);
     useEffect(() => {
         API.GetMovieById(movieId)
             .then((response) => setMovie(response.data.data))
@@ -32,14 +36,29 @@ const MovieDetail = () => {
             .finally(() => setIsLoading(false));
         fetchComments();
         fetchShowtimes();
+        getUserInfo();
     }, [movieId]);
 
     const fetchComments = () => {
         API.GetCommentsByMovie(movieId)
-            .then((response) => setComments(response.data.data || []))
+            .then((response) => {
+                const sortedComments = (response.data.data || []).sort(
+                    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+                );
+                setComments(sortedComments);
+            })
             .catch((error) => console.error("Error fetching comments:", error));
     };
 
+
+    const handleUserAuth = async () => {
+        const token = sessionStorage.getItem("HKT_ACCESS_TOKEN_USER");
+        if (!token) {
+            notification.error({message: "You need to login to perform this action"});
+            navigate("/login");
+            return null;
+        }
+    };
     const fetchShowtimes = () => {
         API.GetShowtimesByMovieId(movieId)
             .then((response) => {
@@ -68,10 +87,20 @@ const MovieDetail = () => {
             })
             .catch((error) => console.error("Error fetching showtimes:", error));
     };
-
-
-
-
+    const getUserInfo = async () => {
+        try {
+            const response = await API.GetMyInFor();
+            const fetchedUserId = response.data.data.id;
+            const fetchedUsername = response.data.data.username;
+            sessionStorage.setItem("userId", fetchedUserId);
+            sessionStorage.setItem("username", fetchedUsername);
+            return {userId: fetchedUserId, username: fetchedUsername};
+        } catch (error) {
+            console.error("Error fetching user info:", error);
+            notification.error({message: "Failed to fetch user info"});
+            throw error;
+        }
+    };
     const fetchSeats = (showtimeId) => {
         API.GetSeatsByShowtime(showtimeId)
             .then((response) => setSeats(response.data.data || []))
@@ -103,6 +132,7 @@ const MovieDetail = () => {
     };
 
     const addComment = async () => {
+
         if (!newComment || newRating === 0) {
             notification.warning({ message: "Please add a comment and rating" });
             return;
@@ -136,6 +166,92 @@ const MovieDetail = () => {
             notification.error({ message: "Failed to add comment" });
         }
     };
+    const submitReply = async () => {
+        if (!replyContent.trim()) {
+            notification.warning({ message: "Please add reply content" });
+            return;
+        }
+
+        try {
+            const token = sessionStorage.getItem("HKT_ACCESS_TOKEN_USER");
+            if (!token) {
+                notification.error({
+                    message: "You need to login to reply to comments.",
+                });
+                navigate("/login");
+                return;
+            }
+
+            const userId = sessionStorage.getItem("userId");
+            const username = sessionStorage.getItem("username");
+
+            if (!userId || !username) {
+                notification.error({
+                    message: "Failed to get user information. Please try again.",
+                });
+                navigate("/login");
+                return;
+            }
+
+            const replyRequest = {
+                movieId: movieId.toString(),
+                content: replyContent.trim(),
+                parentCommentId: replyCommentId,
+                rate: 0, // Không cần đánh giá cho reply
+            };
+
+            await API.ReplyToComment(userId, replyCommentId, replyRequest);
+
+            notification.success({ message: "Reply added successfully" });
+            setReplyContent("");
+            setIsReplyModalVisible(false); // Đóng Modal sau khi gửi thành công
+            fetchComments(); // Cập nhật danh sách bình luận
+        } catch (error) {
+            console.error("Error adding reply:", error);
+            notification.error({ message: "Failed to add reply. Please try again." });
+        }
+    };
+    const renderComments = (comments) => {
+        return comments.map((comment) => (
+            <div key={comment.id} className="comment-item">
+                <p className="fw-bold">
+                    {comment.username || "Anonymous"}
+                    <span style={{ fontSize: "0.9em", color: "gray", marginLeft: "10px" }}>
+          {moment(comment.createdAt).fromNow()} {/* Hiển thị thời gian */}
+        </span>
+                </p>
+                <Rate disabled defaultValue={comment.rate || 0} />
+                <p>{comment.content}</p>
+                <button
+                    type="link"
+                    className="btnReply"
+                    onClick={() => {
+                        setReplyCommentId(comment.id);
+                        setIsReplyModalVisible(true);
+                    }}
+                >
+                    Reply
+                </button>
+                {comment.replies && comment.replies.length > 0 && (
+                    <div className="replies">{renderReplies(comment.replies)}</div>
+                )}
+            </div>
+        ));
+    };
+    const renderReplies = (replies) => {
+        return replies.map((reply) => (
+            <div key={reply.id} className="reply-item" style={{ marginLeft: "20px" }}>
+                <p className="fw-bold">
+                    {reply.username || "Anonymous"}
+                    <span style={{ fontSize: "0.8em", color: "gray", marginLeft: "10px" }}>
+          {moment(reply.createdAt).fromNow()} {/* Hiển thị thời gian */}
+        </span>
+                </p>
+                <p>{reply.content}</p>
+            </div>
+        ));
+    };
+
 
     if (isLoading) {
         return <LoadingComponent />;
@@ -292,13 +408,7 @@ const MovieDetail = () => {
                 )}
                 <div className="comments-section">
                     <h2>Comments</h2>
-                    {comments.map((comment) => (
-                        <div key={comment.id} className="comment-item">
-                            <p className="fw-bold">{comment.username || "Anonymous"}</p>
-                            <Rate disabled defaultValue={comment.rate || 0}/>
-                            <p>{comment.content}</p>
-                        </div>
-                    ))}
+                    {renderComments(comments)}
                     <div className="add-comment">
                         <h3>Add a Comment</h3>
                         <TextArea
@@ -313,6 +423,22 @@ const MovieDetail = () => {
                         </Button>
                     </div>
                 </div>
+                <Modal
+                    title="Reply to Comment"
+                    visible={isReplyModalVisible}
+                    onOk={submitReply}
+                    onCancel={() => setIsReplyModalVisible(false)}
+                    okText="Submit"
+                    cancelText="Cancel"
+                >
+                    <TextArea
+                        rows={3}
+                        value={replyContent}
+                        onChange={(e) => setReplyContent(e.target.value)}
+                        placeholder="Add your reply here"
+                    />
+                </Modal>
+
             </div>
         </div>
     );
